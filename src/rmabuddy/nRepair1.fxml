@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="630.0" prefWidth="1055.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="rmabuddy.NRepair1Controller">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Dane urządzenia:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="66.0" text="Nazwa:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="97.0" text="SN:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="125.0" text="Inne:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField layoutX="87.0" layoutY="64.0" prefHeight="25.0" prefWidth="145.0" />
+      <TextField layoutX="87.0" layoutY="93.0" prefHeight="25.0" prefWidth="145.0" />
+      <TextField layoutX="87.0" layoutY="122.0" prefHeight="25.0" prefWidth="145.0" />
+      <TextArea layoutX="36.0" layoutY="267.0" prefHeight="200.0" prefWidth="420.0" />
+      <Label layoutX="42.0" layoutY="236.0" text="Opis usterki:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

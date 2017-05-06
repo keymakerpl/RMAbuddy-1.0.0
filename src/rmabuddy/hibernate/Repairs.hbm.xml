@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-11-08 22:06:17 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="rmabuddy.hibernate.Repairs" table="REPAIRS" schema="RMABUDDY" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="number" type="string">
+            <column name="NUMBER" length="50" />
+        </property>
+        <property name="startdate" type="java.lang.Integer">
+            <column name="STARTDATE" precision="5" scale="0" />
+        </property>
+        <property name="enddate" type="java.lang.Integer">
+            <column name="ENDDATE" precision="5" scale="0" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="STATUS" precision="5" scale="0" />
+        </property>
+        <property name="defect" type="string">
+            <column name="DEFECT" length="50" />
+        </property>
+        <property name="fix" type="string">
+            <column name="FIX" length="50" />
+        </property>
+        <property name="cost" type="string">
+            <column name="COST" length="50" />
+        </property>
+        <property name="clientid" type="java.lang.Integer">
+            <column name="CLIENTID" precision="5" scale="0" />
+        </property>
+        <property name="hwid" type="java.lang.Integer">
+            <column name="HWID" precision="5" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

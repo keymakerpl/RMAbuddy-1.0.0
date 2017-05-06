@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-11-08 22:06:17 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="rmabuddy.hibernate.Clients" table="CLIENTS" schema="RMABUDDY" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="fname" type="string">
+            <column name="FNAME" length="50" />
+        </property>
+        <property name="sname" type="string">
+            <column name="SNAME" length="50" />
+        </property>
+        <property name="company" type="string">
+            <column name="COMPANY" length="50" />
+        </property>
+        <property name="nip" type="string">
+            <column name="NIP" length="50" />
+        </property>
+        <property name="addr1" type="string">
+            <column name="ADDR1" length="50" />
+        </property>
+        <property name="addr2" type="string">
+            <column name="ADDR2" length="50" />
+        </property>
+        <property name="city" type="string">
+            <column name="CITY" length="50" />
+        </property>
+        <property name="postcode" type="string">
+            <column name="POSTCODE" length="50" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="50" />
+        </property>
+        <property name="phone1" type="string">
+            <column name="PHONE1" length="50" />
+        </property>
+        <property name="phone2" type="string">
+            <column name="PHONE2" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
