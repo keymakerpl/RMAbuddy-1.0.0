@@ -48,6 +48,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button newRepairBtn;
     @FXML
+    private Button newRepairNextBtn;
+    @FXML
     private Button clientsBtn;
     @FXML
     private Button repairsBtn;
@@ -55,6 +57,8 @@ public class FXMLDocumentController implements Initializable {
     private ScrollPane mainPane;
     @FXML
     private Pane nRepair0;
+    @FXML
+    private Pane nRepair1;
     //End
     
     //Table Elements
@@ -116,12 +120,24 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
-    private void nRepairButtonAction(ActionEvent event){
+    private void nRepairButtonAction(ActionEvent event){ //pierwszy panel nowej naprawy
         
         try {
-            nRepair0 = (Pane) FXMLLoader.load(getClass().getResource("/rmabuddy/nRepair.fxml"));
+            nRepair0 = (Pane) FXMLLoader.load(getClass().getResource("/rmabuddy/nRepair0.fxml"));
             mainPane.setContent(nRepair0);
             nRepair0.setPrefSize(mainPane.getPrefWidth()-5, mainPane.getPrefHeight()-5);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(-1);
+        }
+        
+    }
+    private void nRepairNextButtonAction(ActionEvent event){ //przechodzi do drugiego panelu nowej naprawy
+        
+        try {
+            nRepair1 = (Pane) FXMLLoader.load(getClass().getResource("/rmabuddy/nRepair1.fxml"));
+            mainPane.setContent(nRepair1);
+            nRepair1.setPrefSize(mainPane.getPrefWidth()-5, mainPane.getPrefHeight()-5);
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(-1);

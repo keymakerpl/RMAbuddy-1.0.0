@@ -21,9 +21,9 @@
             <Button layoutX="10.0" layoutY="214.0" mnemonicParsing="false" onAction="#exitButtonAction" prefHeight="68.0" prefWidth="180.0" text="WYJŚCIE" />
          </children>
       </VBox>
-      <ScrollPane fx:id="mainPane" layoutX="206.0" layoutY="93.0" prefHeight="611.0" prefWidth="1060.0" AnchorPane.leftAnchor="206.0">
+      <ScrollPane fx:id="mainPane" layoutX="206.0" layoutY="87.0" prefHeight="617.0" prefWidth="1060.0" AnchorPane.leftAnchor="206.0">
          <content>
-            <TableView fx:id="mainTable" prefHeight="609.0" prefWidth="1058.0" />
+            <TableView fx:id="mainTable" prefHeight="615.0" prefWidth="1058.0" />
          </content>
       </ScrollPane>
       <Accordion fx:id="menuAcc" layoutX="14.0" layoutY="448.0" prefHeight="274.0" prefWidth="180.0">
@@ -47,7 +47,7 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Button layoutX="1200.0" layoutY="722.0" mnemonicParsing="false" text="Dalej" />
-      <Button layoutX="1130.0" layoutY="722.0" mnemonicParsing="false" text="Wstecz" />
+      <Button fx:id="newRepairNextBtn" layoutX="1162.0" layoutY="722.0" mnemonicParsing="false" onAction="#nRepairNextButtonAction" prefHeight="50.0" prefWidth="81.0" text="Dalej" />
+      <Button layoutX="1057.0" layoutY="735.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Wstecz" />
    </children>
 </AnchorPane>
