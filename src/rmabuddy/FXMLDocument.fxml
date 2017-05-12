@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -24,13 +25,14 @@
       <ScrollPane fx:id="mainPane" layoutX="206.0" layoutY="87.0" prefHeight="617.0" prefWidth="1060.0" AnchorPane.leftAnchor="206.0">
          <content>
             <TableView fx:id="mainTable" prefHeight="615.0" prefWidth="1058.0" />
+            <fx:include source="nRepair0.fxml"/>
          </content>
       </ScrollPane>
-      <Accordion fx:id="menuAcc" layoutX="14.0" layoutY="448.0" prefHeight="274.0" prefWidth="180.0">
+      <Accordion fx:id="menuAcc" layoutX="14.0" layoutY="448.0" prefHeight="154.0" prefWidth="180.0">
         <panes>
-          <TitledPane fx:id="menuPane" animated="false" prefHeight="146.0" prefWidth="180.0" text="MENU">
+          <TitledPane fx:id="menuPane" animated="false" prefHeight="268.0" prefWidth="180.0" text="MENU">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="205.0" prefWidth="178.0">
                      <children>
                         <Button layoutY="2.0" mnemonicParsing="false" onAction="#nRepairButtonAction" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Nowa naprawa" />
                         <Button layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Edytuj" />
@@ -47,7 +49,10 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="newRepairNextBtn" layoutX="1162.0" layoutY="722.0" mnemonicParsing="false" onAction="#nRepairNextButtonAction" prefHeight="50.0" prefWidth="81.0" text="Dalej" />
-      <Button layoutX="1057.0" layoutY="735.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Wstecz" />
+      <Button fx:id="newRepairNextBtn" layoutX="1162.0" layoutY="722.0" mnemonicParsing="false" onAction="#nRepairNextButtonAction" prefHeight="50.0" prefWidth="81.0" text="Dalej">
+         <tooltip>
+            <Tooltip text="Przechodzi do następnego formularza." />
+         </tooltip></Button>
+      <Button fx:id="newRepairBackBtn" layoutX="1057.0" layoutY="735.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Wstecz" />
    </children>
 </AnchorPane>

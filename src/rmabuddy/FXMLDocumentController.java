@@ -7,7 +7,9 @@ package rmabuddy;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,14 +19,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -37,6 +43,11 @@ import rmabuddy.hibernate.Repairs;
  * @author Radek
  */
 public class FXMLDocumentController implements Initializable {
+    //main controller
+    @FXML
+    NRepairController controller0;
+    @FXML
+    NRepair1Controller controller1;
     
     //Elements
     @FXML
@@ -50,6 +61,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button newRepairNextBtn;
     @FXML
+    private Button newRepairBackBtn;
+    @FXML
     private Button clientsBtn;
     @FXML
     private Button repairsBtn;
@@ -59,6 +72,11 @@ public class FXMLDocumentController implements Initializable {
     private Pane nRepair0;
     @FXML
     private Pane nRepair1;
+    //End
+    
+    //Other vars
+    @FXML
+    Map<String, String> nRepair0Map= new HashMap<>();
     //End
     
     //Table Elements
@@ -122,28 +140,40 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void nRepairButtonAction(ActionEvent event){ //pierwszy panel nowej naprawy
         
+        FXMLLoader loader = new FXMLLoader();
         try {
-            nRepair0 = (Pane) FXMLLoader.load(getClass().getResource("/rmabuddy/nRepair0.fxml"));
+            nRepair0 = (Pane)loader.load(getClass().getResource("nRepair0.fxml").openStream()); //męczyłem się z tym kilka dni, wystarczyło wywołać .openStream()
             mainPane.setContent(nRepair0);
-            nRepair0.setPrefSize(mainPane.getPrefWidth()-5, mainPane.getPrefHeight()-5);
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            System.exit(-1);
         }
+        controller0 = (NRepairController)loader.getController();
         
-    }
-    private void nRepairNextButtonAction(ActionEvent event){ //przechodzi do drugiego panelu nowej naprawy
+        newRepairNextBtn.setVisible(true);
+        newRepairBackBtn.setVisible(true);
         
+    } //nowa naprawa
+    
+    @FXML
+    private void nRepairNextButtonAction(ActionEvent event) throws IOException{ //przechodzi do drugiego panelu nowej naprawy
+        
+        FXMLLoader loader = new FXMLLoader();
         try {
-            nRepair1 = (Pane) FXMLLoader.load(getClass().getResource("/rmabuddy/nRepair1.fxml"));
+            nRepair0Map.put("nazwisko", controller0.getNazwiskoText());
+            nRepair1 = (Pane)loader.load(getClass().getResource("nRepair1.fxml").openStream());
             mainPane.setContent(nRepair1);
-            nRepair1.setPrefSize(mainPane.getPrefWidth()-5, mainPane.getPrefHeight()-5);
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-            System.exit(-1);
         }
+        controller1 = (NRepair1Controller)loader.getController();
+        controller1.setNazwiskoLabel(nRepair0Map.get("nazwisko"));
+        
         
     }
+    //End
+    
+    //Other methods
+   
     //End
     
     //Table views
@@ -252,10 +282,11 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-        mainPane.setContent(null);
-        //menuPane.setDisable(true);
-    }    
+        newRepairNextBtn.setVisible(false);
+        newRepairBackBtn.setVisible(false);
+        mainPane.setContent(null);                
+       
+    }
     
     //SQL Statements
     private static final String clientsSQL = "from Clients";
