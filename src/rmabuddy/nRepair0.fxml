@@ -94,7 +94,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="imieText" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="nazwiskoText" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <TextField GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <TextField GridPane.columnIndex="3" GridPane.rowIndex="2" />
@@ -103,7 +103,7 @@
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="telefon1Text" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>

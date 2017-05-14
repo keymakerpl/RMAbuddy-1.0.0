@@ -25,7 +25,6 @@
       <ScrollPane fx:id="mainPane" layoutX="206.0" layoutY="87.0" prefHeight="617.0" prefWidth="1060.0" AnchorPane.leftAnchor="206.0">
          <content>
             <TableView fx:id="mainTable" prefHeight="615.0" prefWidth="1058.0" />
-            <fx:include source="nRepair0.fxml"/>
          </content>
       </ScrollPane>
       <Accordion fx:id="menuAcc" layoutX="14.0" layoutY="448.0" prefHeight="154.0" prefWidth="180.0">

@@ -5,17 +5,15 @@
  */
 package rmabuddy;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -63,6 +61,19 @@ public class NRepairController implements Initializable {
     public String getNazwiskoText(){
         
         return nazwiskoText.getText();
+    }
+    @FXML
+    public String getImieText(){
+        
+        return imieText.getText();
+    }
+    
+    @FXML
+    public void setEmptyFieldsCol(){
+        
+        nazwiskoText.setStyle("-fx-border-color: #"+"DC143C");
+        imieText.setStyle("-fx-border-color: #"+"DC143C");
+        telefon1Text.setStyle("-fx-border-color: #"+"DC143C");        
     }
     
 }

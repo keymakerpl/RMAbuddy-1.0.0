@@ -7,6 +7,9 @@ package rmabuddy;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -72,9 +76,13 @@ public class FXMLDocumentController implements Initializable {
     private Pane nRepair0;
     @FXML
     private Pane nRepair1;
+    @FXML 
+    private Label welcome;
     //End
     
     //Other vars
+    FXMLLoader loader0 = new FXMLLoader();
+    FXMLLoader loader1 = new FXMLLoader();
     @FXML
     Map<String, String> nRepair0Map= new HashMap<>();
     //End
@@ -140,34 +148,53 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void nRepairButtonAction(ActionEvent event){ //pierwszy panel nowej naprawy
         
-        FXMLLoader loader = new FXMLLoader();
-        try {
-            nRepair0 = (Pane)loader.load(getClass().getResource("nRepair0.fxml").openStream()); //męczyłem się z tym kilka dni, wystarczyło wywołać .openStream()
-            mainPane.setContent(nRepair0);
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        controller0 = (NRepairController)loader.getController();
+        loadPanel0();
         
         newRepairNextBtn.setVisible(true);
         newRepairBackBtn.setVisible(true);
+    }
+    
+    private void loadPanel0(){ //1 panel nowej naprawy
         
-    } //nowa naprawa
+        mainPane.setContent(nRepair0);        
+                
+    }
     
     @FXML
     private void nRepairNextButtonAction(ActionEvent event) throws IOException{ //przechodzi do drugiego panelu nowej naprawy
         
-        FXMLLoader loader = new FXMLLoader();
+        if(!"".equals(controller0.getNazwiskoText())){
+            loadPanel1();
+        }
+        else{
+            controller0.setEmptyFieldsCol();
+        }
+        
+    }
+    
+    private void loadPanel1(){ //2 panel nowej naprawy
+            
+        nRepair0Map.put("nazwisko", controller0.getImieText()+" "+controller0.getNazwiskoText());
+        mainPane.setContent(nRepair1);        
+        controller1.setNazwiskoLabel(nRepair0Map.get("nazwisko"));
+        
+    }
+    
+    private void preparePanels(){
+        
         try {
-            nRepair0Map.put("nazwisko", controller0.getNazwiskoText());
-            nRepair1 = (Pane)loader.load(getClass().getResource("nRepair1.fxml").openStream());
-            mainPane.setContent(nRepair1);
+            nRepair0 = (Pane)loader0.load(getClass().getResource("nRepair0.fxml").openStream()); //męczyłem się z tym kilka dni, wystarczyło wywołać .openStream()            
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        controller1 = (NRepair1Controller)loader.getController();
-        controller1.setNazwiskoLabel(nRepair0Map.get("nazwisko"));
+        controller0 = (NRepairController)loader0.getController();
         
+        try {            
+            nRepair1 = (Pane)loader1.load(getClass().getResource("nRepair1.fxml").openStream());            
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        controller1 = (NRepair1Controller)loader1.getController();
         
     }
     //End
@@ -284,7 +311,8 @@ public class FXMLDocumentController implements Initializable {
         // TODO
         newRepairNextBtn.setVisible(false);
         newRepairBackBtn.setVisible(false);
-        mainPane.setContent(null);                
+        mainPane.setContent(new Pane());
+        preparePanels();                
        
     }
     
