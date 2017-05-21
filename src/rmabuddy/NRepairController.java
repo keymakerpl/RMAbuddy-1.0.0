@@ -11,9 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -55,6 +53,7 @@ public class NRepairController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
     
     @FXML
@@ -66,6 +65,51 @@ public class NRepairController implements Initializable {
     public String getImieText(){
         
         return imieText.getText();
+    }    
+    @FXML
+    public String getFirmaText(){
+        
+        return firmaText.getText();
+    }
+    @FXML
+    public String getNipText(){
+        
+        return nipText.getText();
+    }
+    @FXML
+    public String getTelefon1Text(){
+        
+        return telefon1Text.getText();
+    }
+    @FXML
+    public String getTelefon2Text(){
+        
+        return telefon2Text.getText();
+    }
+    @FXML
+    public String getAdresText(){
+        
+        return adresText.getText();
+    }
+    @FXML
+    public String getAdrescdText(){
+        
+        return adrescdText.getText();
+    }
+    @FXML
+    public String getMiastoText(){
+        
+        return miastoText.getText();
+    }
+    @FXML
+    public String getPocztaText(){
+        
+        return pocztaText.getText();
+    }
+    @FXML
+    public String getEmailText(){
+        
+        return emailText.getText();
     }
     
     @FXML

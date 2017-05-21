@@ -6,7 +6,7 @@
     <class name="rmabuddy.hibernate.Repairs" table="REPAIRS" schema="RMABUDDY" optimistic-lock="version">
         <id name="id" type="int">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="number" type="string">
             <column name="NUMBER" length="50" />

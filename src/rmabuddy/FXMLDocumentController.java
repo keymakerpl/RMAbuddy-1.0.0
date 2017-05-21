@@ -6,13 +6,12 @@
 package rmabuddy;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,22 +21,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import javax.persistence.EntityManager;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.exception.JDBCConnectionException;
 import rmabuddy.hibernate.Clients;
 import rmabuddy.hibernate.HibernateUtil;
 import rmabuddy.hibernate.Repairs;
@@ -47,11 +47,14 @@ import rmabuddy.hibernate.Repairs;
  * @author Radek
  */
 public class FXMLDocumentController implements Initializable {
-    //main controller
+    //panel new repair controllers
     @FXML
     NRepairController controller0;
     @FXML
     NRepair1Controller controller1;
+    
+    Session sesja;
+    
     
     //Elements
     @FXML
@@ -76,15 +79,23 @@ public class FXMLDocumentController implements Initializable {
     private Pane nRepair0;
     @FXML
     private Pane nRepair1;
+    @FXML
+    private Button addClientBtn;
+    @FXML
+    private Button addNewRepairBtn;
+    @FXML
+    private GridPane newRepairBtnGrid;
     @FXML 
     private Label welcome;
+    @FXML
+    Alert alert;
     //End
     
     //Other vars
     FXMLLoader loader0 = new FXMLLoader();
     FXMLLoader loader1 = new FXMLLoader();
     @FXML
-    Map<String, String> nRepair0Map= new HashMap<>();
+    Map<String, String> repairMap = new HashMap<>();
     //End
     
     //Table Elements
@@ -98,8 +109,7 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn cityCol;
     private TableColumn postCol;
     private TableColumn emailCol;
-    private TableColumn phone2Col;
-    
+    private TableColumn phone2Col;    
     private TableColumn rIdCol;
     private TableColumn numberCol;
     private TableColumn startCol;
@@ -149,15 +159,35 @@ public class FXMLDocumentController implements Initializable {
     private void nRepairButtonAction(ActionEvent event){ //pierwszy panel nowej naprawy
         
         loadPanel0();
+        newRepairBtnGrid.setVisible(true); // to do: listener
         
-        newRepairNextBtn.setVisible(true);
-        newRepairBackBtn.setVisible(true);
+        //newRepairNextBtn.setVisible(true);
+        //newRepairBackBtn.setVisible(true);
     }
     
-    private void loadPanel0(){ //1 panel nowej naprawy
+    @FXML
+    private void addClientButtonAction(ActionEvent event){
+        getDataPanel0();
         
-        mainPane.setContent(nRepair0);        
-                
+        sesja.beginTransaction();
+        
+        Clients klient = new Clients();
+        
+        klient.setFname(repairMap.get("imie"));
+        klient.setSname(repairMap.get("nazwisko"));
+        klient.setCompany(repairMap.get("firma"));
+        klient.setNip(repairMap.get("nip"));
+        klient.setAddr1(repairMap.get("adres"));
+        klient.setAddr2(repairMap.get("adrescd"));
+        klient.setCity(repairMap.get("miasto"));
+        klient.setPostcode(repairMap.get("poczta"));
+        klient.setEmail(repairMap.get("email"));
+        klient.setPhone1(repairMap.get("telefon1"));
+        klient.setPhone2(repairMap.get("telefon2"));
+        
+        sesja.save(klient);
+        sesja.getTransaction().commit();
+        
     }
     
     @FXML
@@ -172,14 +202,41 @@ public class FXMLDocumentController implements Initializable {
         
     }
     
-    private void loadPanel1(){ //2 panel nowej naprawy
-            
-        nRepair0Map.put("nazwisko", controller0.getImieText()+" "+controller0.getNazwiskoText());
-        mainPane.setContent(nRepair1);        
-        controller1.setNazwiskoLabel(nRepair0Map.get("nazwisko"));
+    @FXML
+    private void nRepairBackButtonAction(ActionEvent event) throws IOException{ //przechodzi do poprzedniego panelu nowej naprawy
         
-    }
+        mainPane.setContent(nRepair0);
+        
+    }       
+    //End
     
+    //Other methods
+    private void createSession() { //to do: database error catch
+        
+        try{
+            //hibernate session factory
+            sesja = HibernateUtil.getSessionFactory().openSession();
+        }
+        catch(JDBCConnectionException e){
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Błąd bazy danych.");
+            alert.setHeaderText("Błąd połącznia z bazą danych.");
+            alert.setContentText("Wystąpił problem z połączeniem z bazą danych lub plik bazy danych jest uszkodzony.");
+            
+            alert.showAndWait();
+        }
+
+        
+    } 
+    private void loadPanel1(){ //2 panel nowej naprawy
+        
+        getDataPanel0();
+        
+        //addClientBtn.setVisible(false);
+        mainPane.setContent(nRepair1);        
+        controller1.setNazwiskoLabel(repairMap.get("imie")+" "+repairMap.get("nazwisko"));
+        
+    }    
     private void preparePanels(){
         
         try {
@@ -197,10 +254,33 @@ public class FXMLDocumentController implements Initializable {
         controller1 = (NRepair1Controller)loader1.getController();
         
     }
-    //End
-    
-    //Other methods
-   
+    @FXML
+    private void getDataPanel0(){
+        repairMap.put("imie", controller0.getImieText());
+        repairMap.put("nazwisko", controller0.getNazwiskoText());
+        repairMap.put("firma", controller0.getFirmaText());
+        repairMap.put("nip", controller0.getNipText());
+        repairMap.put("telefon1", controller0.getTelefon1Text());
+        repairMap.put("telefon2", controller0.getTelefon2Text());
+        repairMap.put("adres", controller0.getAdresText());
+        repairMap.put("adrescd", controller0.getAdrescdText());
+        repairMap.put("miasto", controller0.getMiastoText());
+        repairMap.put("poczta", controller0.getPocztaText());
+        repairMap.put("email", controller0.getEmailText());
+        
+        /*
+        nRepair0Map.entrySet().stream().forEach((entry) -> {
+            System.out.println(entry.getKey() + "/" + entry.getValue());
+        });
+        */
+        
+    }
+    private void loadPanel0(){ //1 panel nowej naprawy
+        
+        mainPane.setContent(nRepair0);
+        //addClientBtn.setVisible(true);
+                
+    }
     //End
     
     //Table views
@@ -282,13 +362,12 @@ public class FXMLDocumentController implements Initializable {
     
     //Setting SQL
     private void executeSQL(String hql, int s) {
-        try {
-            Session sesja = HibernateUtil.getSessionFactory().openSession();
+        try {            
             sesja.beginTransaction();
             Query q = sesja.createQuery(hql);
             //q.setFirstResult((q.list().size()) - 20);
             List list = q.list();
-
+            
             switch (s) {
                 case 0:
                     setTableRepairs(list);
@@ -309,8 +388,9 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        newRepairNextBtn.setVisible(false);
-        newRepairBackBtn.setVisible(false);
+        
+        createSession();
+        newRepairBtnGrid.setVisible(false); //to do: listener
         mainPane.setContent(new Pane());
         preparePanels();                
        
@@ -319,5 +399,7 @@ public class FXMLDocumentController implements Initializable {
     //SQL Statements
     private static final String clientsSQL = "from Clients";
     private static final String repairsSQL = "from Repairs";
+
+    
     
 }

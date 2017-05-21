@@ -8,6 +8,9 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -48,10 +51,26 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="newRepairNextBtn" layoutX="1162.0" layoutY="722.0" mnemonicParsing="false" onAction="#nRepairNextButtonAction" prefHeight="50.0" prefWidth="81.0" text="Dalej">
-         <tooltip>
-            <Tooltip text="Przechodzi do następnego formularza." />
-         </tooltip></Button>
-      <Button fx:id="newRepairBackBtn" layoutX="1057.0" layoutY="735.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Wstecz" />
+      <GridPane fx:id="newRepairBtnGrid" layoutX="851.0" layoutY="725.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="newRepairNextBtn" mnemonicParsing="false" onAction="#nRepairNextButtonAction" prefHeight="50.0" prefWidth="81.0" text="Dalej" GridPane.columnIndex="2">
+               <tooltip>
+                  <Tooltip text="Przechodzi do następnego formularza." />
+               </tooltip>
+            </Button>
+            <Button fx:id="newRepairBackBtn" mnemonicParsing="false" onAction="#nRepairBackButtonAction" prefHeight="25.0" prefWidth="81.0" text="Wstecz" GridPane.columnIndex="1" />
+            <Button fx:id="addClientBtn" mnemonicParsing="false" onAction="#addClientButtonAction" prefHeight="25.0" prefWidth="137.0" text="Dodaj tylko klienta" />
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Zapisz" GridPane.columnIndex="3" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

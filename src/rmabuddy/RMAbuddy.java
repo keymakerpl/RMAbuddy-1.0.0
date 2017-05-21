@@ -6,6 +6,7 @@
 package rmabuddy;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ public class RMAbuddy extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("RMAbuddy 1.0.0");
+        stage.setOnCloseRequest(e -> System.exit(0));
         stage.show();
     }
 
