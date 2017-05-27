@@ -70,6 +70,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button newRepairBackBtn;
     @FXML
+    private Button newRepairSaveBtn;
+    @FXML
     private Button clientsBtn;
     @FXML
     private Button repairsBtn;
@@ -85,13 +87,11 @@ public class FXMLDocumentController implements Initializable {
     private Button addNewRepairBtn;
     @FXML
     private GridPane newRepairBtnGrid;
-    @FXML 
-    private Label welcome;
     @FXML
     Alert alert;
     //End
     
-    //Other vars
+    //Other vars/obj
     FXMLLoader loader0 = new FXMLLoader();
     FXMLLoader loader1 = new FXMLLoader();
     @FXML
@@ -207,7 +207,14 @@ public class FXMLDocumentController implements Initializable {
         
         mainPane.setContent(nRepair0);
         
-    }       
+    }
+    
+    @FXML
+    private void nRepairSaveBtnAction(ActionEvent event){
+        
+        getDataPanel1();
+        
+    }
     //End
     
     //Other methods
@@ -273,6 +280,11 @@ public class FXMLDocumentController implements Initializable {
             System.out.println(entry.getKey() + "/" + entry.getValue());
         });
         */
+        
+    }
+    private void getDataPanel1(){
+        
+        //repairMap.put("nazwaurz", controller1.getHwName());
         
     }
     private void loadPanel0(){ //1 panel nowej naprawy
@@ -390,6 +402,8 @@ public class FXMLDocumentController implements Initializable {
         // TODO
         
         createSession();
+        newRepairBtnGrid.setHgap(10);
+        newRepairBtnGrid.setVgap(10);
         newRepairBtnGrid.setVisible(false); //to do: listener
         mainPane.setContent(new Pane());
         preparePanels();                

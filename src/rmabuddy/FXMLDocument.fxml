@@ -69,7 +69,7 @@
             </Button>
             <Button fx:id="newRepairBackBtn" mnemonicParsing="false" onAction="#nRepairBackButtonAction" prefHeight="25.0" prefWidth="81.0" text="Wstecz" GridPane.columnIndex="1" />
             <Button fx:id="addClientBtn" mnemonicParsing="false" onAction="#addClientButtonAction" prefHeight="25.0" prefWidth="137.0" text="Dodaj tylko klienta" />
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Zapisz" GridPane.columnIndex="3" />
+            <Button fx:id="newRepairSaveBtn" mnemonicParsing="false" onAction="#nRepairSaveBtnAction" prefHeight="50.0" prefWidth="100.0" text="Zapisz" GridPane.columnIndex="3" />
          </children>
       </GridPane>
    </children>

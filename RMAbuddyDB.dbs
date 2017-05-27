@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Derby" id="Project_12582e3" template="Default" database="Derby" >
+	<schema name="RMABUDDY" schemaname="RMABUDDY" >
+		<table name="CLIENTS" >
+			<column name="ID" type="integer" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="FNAME" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="SNAME" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="COMPANY" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="NIP" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="ADDR1" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="ADDR2" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="CITY" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="POSTCODE" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="EMAIL" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="PHONE1" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="PHONE2" type="varchar" length="50" decimal="0" jt="12" />
+			<index name="SQL161108211700450" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+		</table>
+		<table name="HARDWARE" >
+			<column name="ID" type="integer" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="NAME" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="TYPE" type="numeric" length="5" decimal="0" jt="2" />
+			<column name="INSTORE" type="numeric" length="5" decimal="0" jt="2" />
+			<column name="SN" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="OTHER" type="varchar" length="50" decimal="0" jt="12" />
+			<index name="SQL161108212650820" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+		</table>
+		<table name="REPAIRS" >
+			<column name="ID" type="integer" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="NUMBER" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="STARTDATE" type="numeric" length="5" decimal="0" jt="2" />
+			<column name="ENDDATE" type="numeric" length="5" decimal="0" jt="2" />
+			<column name="STATUS" type="numeric" length="5" decimal="0" jt="2" />
+			<column name="DEFECT" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="FIX" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="COST" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="CLIENTID" type="numeric" length="5" decimal="0" jt="2" />
+			<column name="HWID" type="numeric" length="5" decimal="0" jt="2" />
+			<index name="SQL161108214612670" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+		</table>
+		<table name="STATUS" >
+			<column name="ID" type="integer" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="DESCRIPTION" type="varchar" length="50" decimal="0" jt="12" />
+			<column name="COLOR" type="varchar" length="50" decimal="0" jt="12" />
+			<index name="SQL161108215439570" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+		</table>
+	</schema>
+	<connector name="Derby" database="Derby" driver_class="org.apache.derby.jdbc.EmbeddedDriver" driver_jar="derby10.11.jar" driver_desc="Local Connection" url="jdbc:derby:C:/Users/Radek/.netbeans-derby/rmabuddy" host="localhost" port="1527" instance="C:/Users/Radek/.netbeans-derby/rmabuddy" user="rmabuddy" passwd="I2FyZWEyMDA4" />
+	<layout name="Default Layout" id="Layout_576cfbd" show_relation="columns" >
+		<entity schema="RMABUDDY" name="CLIENTS" color="bfd4f5" x="210" y="45" />
+		<entity schema="RMABUDDY" name="HARDWARE" color="bfd4f5" x="360" y="45" />
+		<entity schema="RMABUDDY" name="REPAIRS" color="bfd4f5" x="360" y="330" />
+		<entity schema="RMABUDDY" name="STATUS" color="bfd4f5" x="45" y="330" />
+	</layout>
+	<layout name="Sample Layout with Groups" id="Layout_37f0ca5" show_relation="columns" >
+		<entity schema="RMABUDDY" name="HARDWARE" color="bfd4f5" x="465" y="150" />
+		<entity schema="RMABUDDY" name="REPAIRS" color="bfd4f5" x="465" y="435" />
+		<entity schema="RMABUDDY" name="STATUS" color="bfd4f5" x="150" y="435" />
+		<entity schema="RMABUDDY" name="CLIENTS" color="bfd4f5" x="195" y="150" />
+		<callout x="45" y="75" pointer="NO" >
+			<comment><![CDATA[You may create multiple layouts with the same or different tables.
+Layouts will be saved to project file. 
+Double-click any column, foreign key or table headers to edit.]]></comment>
+		</callout>
+		<group name="CLIENTS" color="ecf0f7" >
+			<entity schema="RMABUDDY" name="CLIENTS" />
+			<entity schema="RMABUDDY" name="HARDWARE" />
+			<entity schema="RMABUDDY" name="REPAIRS" />
+			<entity schema="RMABUDDY" name="STATUS" />
+		</group>
+	</layout>
+	<layout name="Sample Layout with Relational Data Browse" id="Layout_16710a5" show_relation="columns" >
+		<entity schema="RMABUDDY" name="CLIENTS" color="bfd4f5" x="210" y="165" />
+		<entity schema="RMABUDDY" name="HARDWARE" color="bfd4f5" x="360" y="165" />
+		<entity schema="RMABUDDY" name="REPAIRS" color="bfd4f5" x="360" y="450" />
+		<entity schema="RMABUDDY" name="STATUS" color="bfd4f5" x="45" y="450" />
+		<callout x="210" y="45" pointer="NO" >
+			<comment><![CDATA[Use the Relational Data Browse for exploring data from multiple tables at a time.
+Tables should be bind by foreign keys - if they are not you can create VIRTUAL foreign keys in the layout. 
+Virtual foreign keys will be saved to project file.
+ 
+Descend into children tables by pressing the foreign key arrow icon near title.
+Right-click column headers in browse tables to set filters.]]></comment>
+		</callout>
+		<browser id="Browse_114b912" name="Sample Relational Data Browse" confirm_updates="y" >
+			<browse_table schema="RMABUDDY" entity="CLIENTS" x="10" y="10" width="400" height="300" />
+		</browser>
+	</layout>
+</project>

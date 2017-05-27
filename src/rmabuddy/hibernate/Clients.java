@@ -1,8 +1,11 @@
 package rmabuddy.hibernate;
 // Generated 2016-11-08 22:06:16 by Hibernate Tools 4.3.1
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 
 
@@ -27,6 +30,12 @@ public class Clients  implements java.io.Serializable {
      private String email;
      private String phone1;
      private String phone2;
+    @OneToMany
+    @JoinColumn(name = "clientid")
+     private Repairs repairs;
+    @OneToMany
+    @JoinColumn(name = "clientid")
+     private Hardware hardware;
 
     public Clients() {
     }
@@ -135,6 +144,21 @@ public class Clients  implements java.io.Serializable {
         this.phone2 = phone2;
     }
 
+    public Repairs getRepairs() {
+        return repairs;
+    }
+
+    public void setRepairs(Repairs repairs) {
+        this.repairs = repairs;
+    }
+
+    public Hardware getHardware() {
+        return hardware;
+    }
+
+    public void setHardware(Hardware hardware) {
+        this.hardware = hardware;
+    }
 
 
 

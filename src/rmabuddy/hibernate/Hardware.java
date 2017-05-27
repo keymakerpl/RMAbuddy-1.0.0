@@ -21,6 +21,7 @@ public class Hardware  implements java.io.Serializable {
      private Integer instore;
      private String sn;
      private String other;
+     private Integer clientid;   
 
     public Hardware() {
     }
@@ -29,13 +30,14 @@ public class Hardware  implements java.io.Serializable {
     public Hardware(int id) {
         this.id = id;
     }
-    public Hardware(int id, String name, Integer type, Integer instore, String sn, String other) {
+    public Hardware(int id, String name, Integer type, Integer instore, String sn, String other, Integer clientid) {
        this.id = id;
        this.name = name;
        this.type = type;
        this.instore = instore;
        this.sn = sn;
        this.other = other;
+       this.clientid = clientid;
     }
    
     public int getId() {
@@ -81,7 +83,13 @@ public class Hardware  implements java.io.Serializable {
         this.other = other;
     }
 
+    public Integer getClientid() {
+        return clientid;
+    }
 
+    public void setClientid(Integer clientid) {
+        this.clientid = clientid;
+    }
 
 
 }
