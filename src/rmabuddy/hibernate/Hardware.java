@@ -1,8 +1,15 @@
 package rmabuddy.hibernate;
 // Generated 2016-11-08 22:06:16 by Hibernate Tools 4.3.1
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 
@@ -12,17 +19,22 @@ import javax.persistence.Id;
  */
 
 @Entity
+@Table(name="HARDWARE")
 public class Hardware  implements java.io.Serializable {
 
      @Id
      private int id;
+     
      private String name;
      private Integer type;
      private Integer instore;
      private String sn;
      private String other;
-     private Integer clientid;   
-
+     private Integer clientid;
+     
+     
+     //private Clients klient;
+   
     public Hardware() {
     }
 
@@ -90,8 +102,17 @@ public class Hardware  implements java.io.Serializable {
     public void setClientid(Integer clientid) {
         this.clientid = clientid;
     }
+   
+    /*
+    public Clients getKlient() {
+        return klient;
+    }
 
-
+    public void setKlient(Clients klient) {
+        this.klient = klient;
+    }
+    */
+    
 }
 
 

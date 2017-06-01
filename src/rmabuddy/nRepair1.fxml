@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -11,11 +12,11 @@
 
 <AnchorPane id="AnchorPane" fx:id="nRepair1" prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rmabuddy.NRepair1Controller">
    <children>
-      <GridPane layoutX="14.0" layoutY="10.0" prefHeight="393.0" prefWidth="853.0">
+      <GridPane fx:id="mainGrid" layoutX="14.0" layoutY="10.0" prefHeight="476.0" prefWidth="824.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="155.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="373.0" minWidth="10.0" prefWidth="302.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="434.0" minWidth="10.0" prefWidth="325.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="154.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="373.0" minWidth="10.0" prefWidth="270.0" />
+            <ColumnConstraints halignment="CENTER" maxWidth="434.0" minWidth="10.0" prefWidth="354.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="70.0" vgrow="SOMETIMES" />
@@ -46,10 +47,10 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField prefHeight="25.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField prefHeight="25.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextArea prefHeight="200.0" prefWidth="420.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="hwName" prefHeight="25.0" prefWidth="254.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="sn" prefHeight="25.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="other" prefHeight="25.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextArea fx:id="defect" prefHeight="200.0" prefWidth="420.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Opis usterki:" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
@@ -60,6 +61,18 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
+            <Label text="Typ urządzenia:" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="W serwisie:" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="typeCB" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="inStoreCB" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

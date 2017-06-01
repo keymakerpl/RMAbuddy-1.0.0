@@ -7,11 +7,15 @@ package rmabuddy;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -25,6 +29,8 @@ public class NRepair1Controller implements Initializable {
      */
     
     @FXML
+    GridPane mainGrid;
+    @FXML
     private Label nazwiskoLabel;
     @FXML
     private TextField hwName;
@@ -33,15 +39,24 @@ public class NRepair1Controller implements Initializable {
     @FXML
     private TextField other;
     @FXML
-    private TextField defect;
-
+    private TextArea defect;
+    @FXML
+    private ChoiceBox typeCB = new ChoiceBox();
+    @FXML
+    private ChoiceBox inStoreCB = new ChoiceBox();
     
+   
     @FXML
     private AnchorPane mainPane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO  
+        // TODO
+        typeCB.getItems().addAll(FXCollections.observableArrayList("Laptop", "Komputer", "Telefon", "Konsola"));
+        inStoreCB.getItems().addAll(FXCollections.observableArrayList("W serwisie", "Wydany"));
+        mainGrid.setHgap(10);
+        mainGrid.setVgap(10);
+        
     }
     
     public void setNazwiskoLabel(String str){
@@ -56,35 +71,43 @@ public class NRepair1Controller implements Initializable {
         this.nazwiskoLabel = nazwiskoLabel;
     }
 
-    public TextField getHwName() {
-        return hwName;
+    public String getHwName() {
+        return hwName.getText();
     }
 
     public void setHwName(TextField hwName) {
         this.hwName = hwName;
     }
 
-    public TextField getSn() {
-        return sn;
+    public String getSn() {
+        return sn.getText();
     }
 
     public void setSn(TextField sn) {
         this.sn = sn;
     }
 
-    public TextField getOther() {
-        return other;
+    public String getOther() {
+        return other.getText();
     }
 
     public void setOther(TextField other) {
         this.other = other;
     }
 
-    public TextField getDefect() {
-        return defect;
+    public String getDefect() {
+        return defect.getText();
     }
 
-    public void setDefect(TextField defect) {
+    public void setDefect(TextArea defect) {
         this.defect = defect;
+    }
+    
+    public Integer getType(){
+        return typeCB.getItems().indexOf(typeCB.getSelectionModel().getSelectedItem());
+    }
+    
+    public Integer getStore(){
+        return inStoreCB.getItems().indexOf(inStoreCB.getSelectionModel().getSelectedItem());
     }
 }

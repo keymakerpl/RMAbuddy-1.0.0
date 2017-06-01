@@ -39,6 +39,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.exception.JDBCConnectionException;
 import rmabuddy.hibernate.Clients;
+import rmabuddy.hibernate.Hardware;
 import rmabuddy.hibernate.HibernateUtil;
 import rmabuddy.hibernate.Repairs;
 
@@ -54,8 +55,7 @@ public class FXMLDocumentController implements Initializable {
     NRepair1Controller controller1;
     
     Session sesja;
-    
-    
+        
     //Elements
     @FXML
     private TableView mainTable;
@@ -94,8 +94,8 @@ public class FXMLDocumentController implements Initializable {
     //Other vars/obj
     FXMLLoader loader0 = new FXMLLoader();
     FXMLLoader loader1 = new FXMLLoader();
-    @FXML
     Map<String, String> repairMap = new HashMap<>();
+    Map<String, Integer> repairMapInts = new HashMap<>();
     //End
     
     //Table Elements
@@ -186,6 +186,7 @@ public class FXMLDocumentController implements Initializable {
         klient.setPhone2(repairMap.get("telefon2"));
         
         sesja.save(klient);
+        
         sesja.getTransaction().commit();
         
     }
@@ -213,6 +214,38 @@ public class FXMLDocumentController implements Initializable {
     private void nRepairSaveBtnAction(ActionEvent event){
         
         getDataPanel1();
+        
+        
+        
+        Clients klient = new Clients();
+        Hardware sprzet = new Hardware();
+        Repairs naprawa = new Repairs();
+        
+        klient.setFname(repairMap.get("imie"));
+        klient.setSname(repairMap.get("nazwisko"));
+        klient.setCompany(repairMap.get("firma"));
+        klient.setNip(repairMap.get("nip"));
+        klient.setAddr1(repairMap.get("adres"));
+        klient.setAddr2(repairMap.get("adrescd"));
+        klient.setCity(repairMap.get("miasto"));
+        klient.setPostcode(repairMap.get("poczta"));
+        klient.setEmail(repairMap.get("email"));
+        klient.setPhone1(repairMap.get("telefon1"));
+        klient.setPhone2(repairMap.get("telefon2"));
+        
+        //sprzet.setType(repairMapInts.get("type"));
+        //sprzet.setInstore(repairMapInts.get("instore"));
+        
+        naprawa.setDefect(repairMap.get("defect"));
+   
+        sesja.getTransaction().begin();
+        
+        naprawa.setKlient(klient);
+        sesja.save(klient);
+        sesja.save(naprawa);
+        
+        sesja.getTransaction().commit();
+        sesja.close();
         
     }
     //End
@@ -261,7 +294,6 @@ public class FXMLDocumentController implements Initializable {
         controller1 = (NRepair1Controller)loader1.getController();
         
     }
-    @FXML
     private void getDataPanel0(){
         repairMap.put("imie", controller0.getImieText());
         repairMap.put("nazwisko", controller0.getNazwiskoText());
@@ -284,7 +316,13 @@ public class FXMLDocumentController implements Initializable {
     }
     private void getDataPanel1(){
         
-        //repairMap.put("nazwaurz", controller1.getHwName());
+        repairMap.put("nazwaurz", controller1.getHwName());
+        repairMap.put("sn", controller1.getSn());
+        repairMap.put("other", controller1.getOther());
+        repairMap.put("defect", controller1.getDefect());
+        
+        repairMapInts.put("typ", controller1.getType());
+        repairMapInts.put("instore", controller1.getStore());
         
     }
     private void loadPanel0(){ //1 panel nowej naprawy
@@ -393,6 +431,7 @@ public class FXMLDocumentController implements Initializable {
                 System.out.println(he);
                 System.exit(-1);                        
         }
+        
     }
     //End
     
