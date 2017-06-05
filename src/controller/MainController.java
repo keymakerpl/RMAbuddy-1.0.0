@@ -40,15 +40,14 @@ import rmabuddy.hibernate.Repairs;
  * @author Radek
  */
 public class MainController implements Initializable {
-    // <editor-fold desc="Controllers">
-    @FXML
-    NRepairController controller0;
-    @FXML
-    NRepair1Controller controller1;
-    // </editor-fold>
     
     //hebernate con.
     Session sesja;
+    
+    // <editor-fold desc="Controllers">
+    NRepairController controller0;
+    NRepair1Controller controller1;
+    // </editor-fold>
         
     // <editor-fold desc="FXML elements">
     @FXML
@@ -327,7 +326,7 @@ public class MainController implements Initializable {
     // </editor-fold>
     
     // <editor-fold desc="Main table views">
-    @FXML
+
     private void setTableRepairs(List list){
         
         mainPane.setContent(mainTable);
@@ -361,7 +360,6 @@ public class MainController implements Initializable {
         
     }
     
-    @FXML
     private void setTableClients(List list){
 
         mainPane.setContent(mainTable);

@@ -20,6 +20,9 @@ public class Hardware  implements java.io.Serializable {
      private String sn;
      private String other;
      private Integer clientid;
+     private Integer repairid;
+
+    
      
      
      //private Clients klient;
@@ -101,6 +104,14 @@ public class Hardware  implements java.io.Serializable {
         this.klient = klient;
     }
     */
+    
+    public Integer getRepairid() {
+        return repairid;
+    }
+
+    public void setRepairid(Integer repairid) {
+        this.repairid = repairid;
+    }
     
 }
 
