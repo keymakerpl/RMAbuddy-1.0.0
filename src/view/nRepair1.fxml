@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="nRepair1" prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rmabuddy.NRepair1Controller">
+<AnchorPane id="AnchorPane" fx:id="nRepair1" prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NRepair1Controller">
    <children>
       <GridPane fx:id="mainGrid" layoutX="14.0" layoutY="10.0" prefHeight="476.0" prefWidth="824.0">
          <columnConstraints>

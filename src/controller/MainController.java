@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package rmabuddy;
+
+package controller;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +19,6 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -33,7 +26,6 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javax.persistence.EntityManager;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -47,16 +39,18 @@ import rmabuddy.hibernate.Repairs;
  *
  * @author Radek
  */
-public class FXMLDocumentController implements Initializable {
-    //panel new repair controllers
+public class MainController implements Initializable {
+    // <editor-fold desc="Controllers">
     @FXML
     NRepairController controller0;
     @FXML
     NRepair1Controller controller1;
+    // </editor-fold>
     
+    //hebernate con.
     Session sesja;
         
-    //Elements
+    // <editor-fold desc="FXML elements">
     @FXML
     private TableView mainTable;
     @FXML
@@ -89,16 +83,16 @@ public class FXMLDocumentController implements Initializable {
     private GridPane newRepairBtnGrid;
     @FXML
     Alert alert;
-    //End
+    // </editor-fold>
     
-    //Other vars/obj
+    // <editor-fold desc="Other obj/var">
     FXMLLoader loader0 = new FXMLLoader();
     FXMLLoader loader1 = new FXMLLoader();
     Map<String, String> repairMap = new HashMap<>();
     Map<String, Integer> repairMapInts = new HashMap<>();
-    //End
+    // </editor-fold>
     
-    //Table Elements
+    // <editor-fold desc="Table columns">
     private TableColumn cIdCol;
     private TableColumn fNameCol;
     private TableColumn sNameCol;
@@ -118,9 +112,9 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn costCol;
     private TableColumn statusCol;
     private TableColumn defectCol;
-    //End
+    // </editor-fold>
     
-    //Main buttons
+    // <editor-fold desc="Buttons">
     @FXML
     private void repairsButtonAction(ActionEvent event) {
         System.out.println("Button Clicked");
@@ -214,8 +208,7 @@ public class FXMLDocumentController implements Initializable {
     private void nRepairSaveBtnAction(ActionEvent event){
         
         getDataPanel1();
-        
-        
+                
         
         Clients klient = new Clients();
         Hardware sprzet = new Hardware();
@@ -248,9 +241,9 @@ public class FXMLDocumentController implements Initializable {
         sesja.close();
         
     }
-    //End
+    // </editor-fold>
     
-    //Other methods
+    // <editor-fold desc="Other methods">
     private void createSession() { //to do: database error catch
         
         try{
@@ -280,16 +273,16 @@ public class FXMLDocumentController implements Initializable {
     private void preparePanels(){
         
         try {
-            nRepair0 = (Pane)loader0.load(getClass().getResource("nRepair0.fxml").openStream()); //męczyłem się z tym kilka dni, wystarczyło wywołać .openStream()            
+            nRepair0 = (Pane)loader0.load(getClass().getResource("/view/nRepair0.fxml").openStream()); // .openStream() rozwiązało problem błędów z null           
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         controller0 = (NRepairController)loader0.getController();
         
         try {            
-            nRepair1 = (Pane)loader1.load(getClass().getResource("nRepair1.fxml").openStream());            
+            nRepair1 = (Pane)loader1.load(getClass().getResource("/view/nRepair1.fxml").openStream());            
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         controller1 = (NRepair1Controller)loader1.getController();
         
@@ -331,9 +324,9 @@ public class FXMLDocumentController implements Initializable {
         //addClientBtn.setVisible(true);
                 
     }
-    //End
+    // </editor-fold>
     
-    //Table views
+    // <editor-fold desc="Main table views">
     @FXML
     private void setTableRepairs(List list){
         
@@ -408,7 +401,7 @@ public class FXMLDocumentController implements Initializable {
         mainTable.setItems(data);
         
     }
-    //End
+    // </editor-fold>
     
     //Setting SQL
     private void executeSQL(String hql, int s) {
