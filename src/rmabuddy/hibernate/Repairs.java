@@ -1,6 +1,7 @@
 package rmabuddy.hibernate;
 
 
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Table(name="REPAIRS")
 @Entity
-public class Repairs  implements java.io.Serializable {
+public class Repairs implements java.io.Serializable {
 
      @Id
      @GeneratedValue(generator = "gen")
@@ -20,19 +21,20 @@ public class Repairs  implements java.io.Serializable {
      private int id;
      
      private String number;
-     private Integer startdate;
-     private Integer enddate;
+     private Date startdate;
+     private Date enddate;
      private Integer status;
      private String defect;
      private String fix;
-     private String cost;
-     private Integer clientid;
-     private Integer hwid;
-         
+     private String cost;   
     
     @OneToOne
-    @JoinColumn(name = "KLIENT_ID", nullable = false)    
-     private Clients klient;
+    @JoinColumn(name = "CLIENTID", nullable = false)    
+    private Clients klient;
+    
+    @OneToOne
+    @JoinColumn(name = "HWID")
+    private Hardware sprzet;
 
     public Repairs() {
     }
@@ -41,7 +43,7 @@ public class Repairs  implements java.io.Serializable {
     public Repairs(int id) {
         this.id = id;
     }
-    public Repairs(int id, String number, Integer startdate, Integer enddate, Integer status, String defect, String fix, String cost, Integer clientid, Integer hwid) {
+    public Repairs(int id, String number, Date startdate, Date enddate, Integer status, String defect, String fix, String cost, Integer clientid, Integer hwid) {
        this.id = id;
        this.number = number;
        this.startdate = startdate;
@@ -50,8 +52,8 @@ public class Repairs  implements java.io.Serializable {
        this.defect = defect;
        this.fix = fix;
        this.cost = cost;
-       this.clientid = clientid;
-       this.hwid = hwid;
+       //this.clientid = clientid;
+       //this.hwid = hwid;
     }
    
     public int getId() {
@@ -68,18 +70,18 @@ public class Repairs  implements java.io.Serializable {
     public void setNumber(String number) {
         this.number = number;
     }
-    public Integer getStartdate() {
+    public Date getStartdate() {
         return this.startdate;
     }
     
-    public void setStartdate(Integer startdate) {
+    public void setStartdate(Date startdate) {
         this.startdate = startdate;
     }
-    public Integer getEnddate() {
+    public Date getEnddate() {
         return this.enddate;
     }
     
-    public void setEnddate(Integer enddate) {
+    public void setEnddate(Date enddate) {
         this.enddate = enddate;
     }
     public Integer getStatus() {
@@ -110,20 +112,6 @@ public class Repairs  implements java.io.Serializable {
     public void setCost(String cost) {
         this.cost = cost;
     }
-    public Integer getClientid() {
-        return this.clientid;
-    }
-    
-    public void setClientid(Integer clientid) {
-        this.clientid = clientid;
-    }
-    public Integer getHwid() {
-        return this.hwid;
-    }
-    
-    public void setHwid(Integer hwid) {
-        this.hwid = hwid;
-    }
     
     public Clients getKlient() {
         return klient;
@@ -132,6 +120,15 @@ public class Repairs  implements java.io.Serializable {
     public void setKlient(Clients klient) {
         this.klient = klient;
     }
+
+    public Hardware getSprzet() {
+        return sprzet;
+    }
+
+    public void setSprzet(Hardware sprzet) {
+        this.sprzet = sprzet;
+    }
+
     
 
 }

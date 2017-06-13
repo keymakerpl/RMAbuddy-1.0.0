@@ -34,7 +34,6 @@ public class Clients  implements java.io.Serializable {
      @OneToOne(mappedBy = "klient")
      private Repairs repairs;
      
-     //private Hardware hardware;
 
     public Clients() {
     }
@@ -142,25 +141,7 @@ public class Clients  implements java.io.Serializable {
     public void setPhone2(String phone2) {
         this.phone2 = phone2;
     }
-    /*
-    public Repairs getRepairs() {
-        return repairs;
-    }
-
-    public void setRepairs(Repairs repairs) {
-        this.repairs = repairs;
-    }
-
-    public Hardware getHardware() {
-        return hardware;
-    }
-
-    public void setHardware(Hardware hardware) {
-        this.hardware = hardware;
-    }
-    */
-
-
+   
 }
 
 

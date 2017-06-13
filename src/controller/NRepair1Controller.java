@@ -6,11 +6,16 @@
 package controller;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -29,7 +34,7 @@ public class NRepair1Controller implements Initializable {
      */
     
     @FXML
-    GridPane mainGrid;
+    private GridPane mainGrid;
     @FXML
     private Label nazwiskoLabel;
     @FXML
@@ -38,14 +43,20 @@ public class NRepair1Controller implements Initializable {
     private TextField sn;
     @FXML
     private TextField other;
+    @FXML 
+    private TextField costText;
     @FXML
     private TextArea defect;
+    @FXML
+    private TextArea fix;
     @FXML
     private ChoiceBox typeCB = new ChoiceBox();
     @FXML
     private ChoiceBox inStoreCB = new ChoiceBox();
-    
-   
+    @FXML
+    private DatePicker startDateP = new DatePicker();
+    @FXML
+    private DatePicker endDateP = new DatePicker();    
     @FXML
     private AnchorPane mainPane;
     
@@ -54,9 +65,8 @@ public class NRepair1Controller implements Initializable {
         // TODO
         typeCB.getItems().addAll(FXCollections.observableArrayList("Laptop", "Komputer", "Telefon", "Konsola"));
         inStoreCB.getItems().addAll(FXCollections.observableArrayList("W serwisie", "Wydany"));
-        mainGrid.setHgap(10);
-        mainGrid.setVgap(10);
-        
+        startDateP.setValue(LocalDate.now());
+       
     }
     
     public void setNazwiskoLabel(String str){
@@ -104,10 +114,76 @@ public class NRepair1Controller implements Initializable {
     }
     
     public Integer getType(){
-        return typeCB.getItems().indexOf(typeCB.getSelectionModel().getSelectedItem());
+        return typeCB.getSelectionModel().getSelectedIndex();
     }
     
     public Integer getStore(){
-        return inStoreCB.getItems().indexOf(inStoreCB.getSelectionModel().getSelectedItem());
+        return inStoreCB.getSelectionModel().getSelectedIndex();
     }
+
+    public GridPane getMainGrid() {
+        return mainGrid;
+    }
+
+    public void setMainGrid(GridPane mainGrid) {
+        this.mainGrid = mainGrid;
+    }
+
+    public TextField getCostText() {
+        return costText;
+    }
+
+    public void setCostText(TextField costText) {
+        this.costText = costText;
+    }
+
+    public TextArea getFix() {
+        return fix;
+    }
+
+    public void setFix(TextArea fix) {
+        this.fix = fix;
+    }
+
+    public ChoiceBox getTypeCB() {
+        return typeCB;
+    }
+
+    public void setTypeCB(ChoiceBox typeCB) {
+        this.typeCB = typeCB;
+    }
+
+    public ChoiceBox getInStoreCB() {
+        return inStoreCB;
+    }
+
+    public void setInStoreCB(ChoiceBox inStoreCB) {
+        this.inStoreCB = inStoreCB;
+    }
+
+    public DatePicker getStartDateP() {
+        return startDateP;
+    }
+
+    public void setStartDateP(DatePicker startDateP) {
+        this.startDateP = startDateP;
+    }
+
+    public DatePicker getEndDateP() {
+        return endDateP;
+    }
+
+    public void setEndDateP(DatePicker endDateP) {
+        this.endDateP = endDateP;
+    }
+
+    public AnchorPane getMainPane() {
+        return mainPane;
+    }
+
+    public void setMainPane(AnchorPane mainPane) {
+        this.mainPane = mainPane;
+    }
+    
+    
 }

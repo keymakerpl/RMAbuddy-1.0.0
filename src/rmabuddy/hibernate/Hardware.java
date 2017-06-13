@@ -2,8 +2,11 @@ package rmabuddy.hibernate;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
 
 
 
@@ -12,6 +15,8 @@ import javax.persistence.Table;
 public class Hardware  implements java.io.Serializable {
 
      @Id
+     @GeneratedValue(generator = "gen")
+     @GenericGenerator(name = "gen", strategy = "increment")
      private int id;
      
      private String name;
@@ -19,13 +24,9 @@ public class Hardware  implements java.io.Serializable {
      private Integer instore;
      private String sn;
      private String other;
-     private Integer clientid;
-     private Integer repairid;
-
-    
      
-     
-     //private Clients klient;
+     @OneToOne(mappedBy = "sprzet")
+     private Repairs naprawa;
    
     public Hardware() {
     }
@@ -41,7 +42,7 @@ public class Hardware  implements java.io.Serializable {
        this.instore = instore;
        this.sn = sn;
        this.other = other;
-       this.clientid = clientid;
+       //this.clientid = clientid;
     }
    
     public int getId() {
@@ -87,32 +88,7 @@ public class Hardware  implements java.io.Serializable {
         this.other = other;
     }
 
-    public Integer getClientid() {
-        return clientid;
-    }
-
-    public void setClientid(Integer clientid) {
-        this.clientid = clientid;
-    }
    
-    /*
-    public Clients getKlient() {
-        return klient;
-    }
-
-    public void setKlient(Clients klient) {
-        this.klient = klient;
-    }
-    */
-    
-    public Integer getRepairid() {
-        return repairid;
-    }
-
-    public void setRepairid(Integer repairid) {
-        this.repairid = repairid;
-    }
-    
 }
 
 

@@ -3,6 +3,9 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -89,6 +93,7 @@ public class MainController implements Initializable {
     FXMLLoader loader1 = new FXMLLoader();
     Map<String, String> repairMap = new HashMap<>();
     Map<String, Integer> repairMapInts = new HashMap<>();
+    Map<String, Date> repairMapDates = new HashMap<>();
     // </editor-fold>
     
     // <editor-fold desc="Table columns">
@@ -207,37 +212,7 @@ public class MainController implements Initializable {
     private void nRepairSaveBtnAction(ActionEvent event){
         
         getDataPanel1();
-                
-        
-        Clients klient = new Clients();
-        Hardware sprzet = new Hardware();
-        Repairs naprawa = new Repairs();
-        
-        klient.setFname(repairMap.get("imie"));
-        klient.setSname(repairMap.get("nazwisko"));
-        klient.setCompany(repairMap.get("firma"));
-        klient.setNip(repairMap.get("nip"));
-        klient.setAddr1(repairMap.get("adres"));
-        klient.setAddr2(repairMap.get("adrescd"));
-        klient.setCity(repairMap.get("miasto"));
-        klient.setPostcode(repairMap.get("poczta"));
-        klient.setEmail(repairMap.get("email"));
-        klient.setPhone1(repairMap.get("telefon1"));
-        klient.setPhone2(repairMap.get("telefon2"));
-        
-        //sprzet.setType(repairMapInts.get("type"));
-        //sprzet.setInstore(repairMapInts.get("instore"));
-        
-        naprawa.setDefect(repairMap.get("defect"));
-   
-        sesja.getTransaction().begin();
-        
-        naprawa.setKlient(klient);
-        sesja.save(klient);
-        sesja.save(naprawa);
-        
-        sesja.getTransaction().commit();
-        sesja.close();
+        saveNewRepair();                
         
     }
     // </editor-fold>
@@ -308,6 +283,9 @@ public class MainController implements Initializable {
     }
     private void getDataPanel1(){
         
+        LocalDate startDate = controller1.getStartDateP().getValue();
+        LocalDate endDate = controller1.getEndDateP().getValue();
+        
         repairMap.put("nazwaurz", controller1.getHwName());
         repairMap.put("sn", controller1.getSn());
         repairMap.put("other", controller1.getOther());
@@ -316,12 +294,55 @@ public class MainController implements Initializable {
         repairMapInts.put("typ", controller1.getType());
         repairMapInts.put("instore", controller1.getStore());
         
+        repairMapDates.put("startdate", java.sql.Date.valueOf(startDate));
+        repairMapDates.put("enddate", java.sql.Date.valueOf(endDate));
+        
     }
     private void loadPanel0(){ //1 panel nowej naprawy
         
         mainPane.setContent(nRepair0);
         //addClientBtn.setVisible(true);
                 
+    }
+    private void saveNewRepair(){
+        
+        Clients klient = new Clients();
+        Hardware sprzet = new Hardware();
+        Repairs naprawa = new Repairs();
+        
+        klient.setFname(repairMap.get("imie"));
+        klient.setSname(repairMap.get("nazwisko"));
+        klient.setCompany(repairMap.get("firma"));
+        klient.setNip(repairMap.get("nip"));
+        klient.setAddr1(repairMap.get("adres"));
+        klient.setAddr2(repairMap.get("adrescd"));
+        klient.setCity(repairMap.get("miasto"));
+        klient.setPostcode(repairMap.get("poczta"));
+        klient.setEmail(repairMap.get("email"));
+        klient.setPhone1(repairMap.get("telefon1"));
+        klient.setPhone2(repairMap.get("telefon2"));
+        
+        sprzet.setType(repairMapInts.get("typ"));
+        sprzet.setInstore(repairMapInts.get("instore"));
+        sprzet.setOther(repairMap.get("other"));
+        sprzet.setName(repairMap.get("nazwaurz"));
+        sprzet.setSn(repairMap.get("sn"));
+        
+        naprawa.setDefect(repairMap.get("defect"));
+        naprawa.setStartdate(repairMapDates.get("startdate"));
+        naprawa.setEnddate(repairMapDates.get("enddate"));
+   
+        sesja.getTransaction().begin();
+        
+        naprawa.setKlient(klient);
+        naprawa.setSprzet(sprzet);
+        sesja.save(klient);
+        sesja.save(sprzet);
+        sesja.save(naprawa);
+        
+        sesja.getTransaction().commit();
+        sesja.close();
+        
     }
     // </editor-fold>
     
