@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controller;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -33,8 +26,11 @@ public class NRepair1Controller implements Initializable {
      * Initializes the controller class.
      */
     
+    //<editor-fold desc="FXML Elements">
     @FXML
     private GridPane mainGrid;
+    @FXML
+    private AnchorPane mainPane;
     @FXML
     private Label nazwiskoLabel;
     @FXML
@@ -54,11 +50,13 @@ public class NRepair1Controller implements Initializable {
     @FXML
     private ChoiceBox inStoreCB = new ChoiceBox();
     @FXML
+    private ChoiceBox statCB = new ChoiceBox();
+    @FXML
     private DatePicker startDateP = new DatePicker();
     @FXML
     private DatePicker endDateP = new DatePicker();    
-    @FXML
-    private AnchorPane mainPane;
+    
+    //</editor-fold>
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -66,9 +64,12 @@ public class NRepair1Controller implements Initializable {
         typeCB.getItems().addAll(FXCollections.observableArrayList("Laptop", "Komputer", "Telefon", "Konsola"));
         inStoreCB.getItems().addAll(FXCollections.observableArrayList("W serwisie", "Wydany"));
         startDateP.setValue(LocalDate.now());
+        endDateP.setValue(LocalDate.now());
+        statCB.getItems().addAll(FXCollections.observableArrayList("Otwarta", "Zamknięta"));
        
     }
     
+    //<editor-fold desc="Getters/Setters">
     public void setNazwiskoLabel(String str){
         nazwiskoLabel.setText(str);
     }
@@ -105,8 +106,8 @@ public class NRepair1Controller implements Initializable {
         this.other = other;
     }
 
-    public String getDefect() {
-        return defect.getText();
+    public TextArea getDefect() {
+        return defect;
     }
 
     public void setDefect(TextArea defect) {
@@ -161,6 +162,14 @@ public class NRepair1Controller implements Initializable {
         this.inStoreCB = inStoreCB;
     }
 
+    public ChoiceBox getStatCB() {
+        return statCB;
+    }
+
+    public void setStatCB(ChoiceBox statCB) {
+        this.statCB = statCB;
+    }
+    
     public DatePicker getStartDateP() {
         return startDateP;
     }
@@ -184,6 +193,6 @@ public class NRepair1Controller implements Initializable {
     public void setMainPane(AnchorPane mainPane) {
         this.mainPane = mainPane;
     }
-    
+    //</editor-fold>
     
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="nRepair1" prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NRepair1Controller">
+<AnchorPane id="AnchorPane" fx:id="nRepair1" prefHeight="600.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NRepair1Controller">
    <children>
       <GridPane fx:id="mainGrid" hgap="10.0" layoutX="14.0" layoutY="10.0" prefHeight="544.0" prefWidth="824.0" vgap="10.0">
          <columnConstraints>
@@ -77,7 +77,7 @@
             </Label>
             <ChoiceBox fx:id="typeCB" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <ChoiceBox fx:id="inStoreCB" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <TextArea prefHeight="200.0" prefWidth="307.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <TextArea fx:id="fix" prefHeight="200.0" prefWidth="307.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
             <Label text="Opis naprawy:" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="7">
                <font>
                   <Font size="14.0" />
@@ -88,13 +88,13 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <TextField fx:id="costText" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <Label text="Status naprawy:" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <ChoiceBox fx:id="statCB" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <Label text="Data rozpoczęcia:" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                <font>
                   <Font size="14.0" />

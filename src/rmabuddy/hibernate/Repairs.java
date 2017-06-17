@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -21,7 +22,9 @@ public class Repairs implements java.io.Serializable {
      private int id;
      
      private String number;
+     @Temporal(javax.persistence.TemporalType.DATE)
      private Date startdate;
+     @Temporal(javax.persistence.TemporalType.DATE)
      private Date enddate;
      private Integer status;
      private String defect;

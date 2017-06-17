@@ -57,6 +57,8 @@ public class Clients  implements java.io.Serializable {
        this.phone2 = phone2;
     }
     
+    // <editor-fold desc="Getters/Setters">
+    
     public int getId() {
         return this.id;
     }
@@ -141,7 +143,7 @@ public class Clients  implements java.io.Serializable {
     public void setPhone2(String phone2) {
         this.phone2 = phone2;
     }
-   
+    //</editor-fold>
 }
 
 

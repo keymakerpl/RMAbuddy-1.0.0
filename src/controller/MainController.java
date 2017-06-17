@@ -289,10 +289,13 @@ public class MainController implements Initializable {
         repairMap.put("nazwaurz", controller1.getHwName());
         repairMap.put("sn", controller1.getSn());
         repairMap.put("other", controller1.getOther());
-        repairMap.put("defect", controller1.getDefect());
+        repairMap.put("defect", controller1.getDefect().getText());
+        repairMap.put("fix", controller1.getFix().getText());
+        repairMap.put("cost", controller1.getCostText().getText());
         
         repairMapInts.put("typ", controller1.getType());
         repairMapInts.put("instore", controller1.getStore());
+        repairMapInts.put("status", controller1.getStatCB().getSelectionModel().getSelectedIndex());
         
         repairMapDates.put("startdate", java.sql.Date.valueOf(startDate));
         repairMapDates.put("enddate", java.sql.Date.valueOf(endDate));
@@ -329,6 +332,9 @@ public class MainController implements Initializable {
         sprzet.setSn(repairMap.get("sn"));
         
         naprawa.setDefect(repairMap.get("defect"));
+        naprawa.setFix(repairMap.get("fix"));
+        naprawa.setStatus(repairMapInts.get("status"));
+        naprawa.setCost(repairMap.get("cost"));
         naprawa.setStartdate(repairMapDates.get("startdate"));
         naprawa.setEnddate(repairMapDates.get("enddate"));
    
@@ -341,7 +347,7 @@ public class MainController implements Initializable {
         sesja.save(naprawa);
         
         sesja.getTransaction().commit();
-        sesja.close();
+        //sesja.close();
         
     }
     // </editor-fold>
@@ -461,7 +467,7 @@ public class MainController implements Initializable {
        
     }
     
-    //SQL Statements
+    //SQL Statements, TODO: change to hibernate friendly
     private static final String clientsSQL = "from Clients";
     private static final String repairsSQL = "from Repairs";
 
