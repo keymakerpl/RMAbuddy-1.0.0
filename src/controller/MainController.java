@@ -4,7 +4,6 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,6 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -33,11 +31,17 @@ import javafx.scene.layout.Pane;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.exception.JDBCConnectionException;
 import rmabuddy.hibernate.Clients;
 import rmabuddy.hibernate.Hardware;
 import rmabuddy.hibernate.HibernateUtil;
 import rmabuddy.hibernate.Repairs;
+import static java.lang.System.out;
+import static java.lang.System.err;
+import java.net.ConnectException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import org.hibernate.exception.JDBCConnectionException;
 
 /**
  *
@@ -224,13 +228,16 @@ public class MainController implements Initializable {
             //hibernate session factory
             sesja = HibernateUtil.getSessionFactory().openSession();
         }
-        catch(JDBCConnectionException e){
+        catch(HibernateException e){
+            err.println(e);
+            
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Błąd bazy danych.");
             alert.setHeaderText("Błąd połącznia z bazą danych.");
             alert.setContentText("Wystąpił problem z połączeniem z bazą danych lub plik bazy danych jest uszkodzony.");
             
             alert.showAndWait();
+            
         }
 
         
@@ -329,8 +336,15 @@ public class MainController implements Initializable {
         sprzet.setInstore(repairMapInts.get("instore"));
         sprzet.setOther(repairMap.get("other"));
         sprzet.setName(repairMap.get("nazwaurz"));
-        sprzet.setSn(repairMap.get("sn"));
+        sprzet.setSn(repairMap.get("sn"));        
         
+        
+        StringBuilder number = new StringBuilder("");
+        Date date = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("MMYY");
+        number.append(naprawa.getId()); number.append("/"); number.append(df.format(date));
+        
+        naprawa.setNumber(number.toString());
         naprawa.setDefect(repairMap.get("defect"));
         naprawa.setFix(repairMap.get("fix"));
         naprawa.setStatus(repairMapInts.get("status"));
@@ -349,6 +363,14 @@ public class MainController implements Initializable {
         sesja.getTransaction().commit();
         //sesja.close();
         
+    }
+    private void getLastRepairId(){
+        
+        sesja.beginTransaction();
+        Query q = sesja.createQuery(repairsSQL);
+        
+        List list = q.list();
+        sesja.getTransaction().commit();
     }
     // </editor-fold>
     
@@ -403,7 +425,7 @@ public class MainController implements Initializable {
         phone1Col = new TableColumn("Telefon 1");
         phone2Col = new TableColumn("Telefon 2");
         
-        menuPane.setDisable(false);
+        //menuPane.setDisable(false);
         
         mainTable.getColumns().clear();
         mainTable.getColumns().addAll(cIdCol, fNameCol, sNameCol, companyCol, nipCol, 
@@ -439,12 +461,16 @@ public class MainController implements Initializable {
             switch (s) {
                 case 0:
                     setTableRepairs(list);
+                    sesja.getTransaction().commit();
+                    err.println("case 0");
                     break;
                 case 1:
                     setTableClients(list);
+                    sesja.getTransaction().commit();
+                    err.println("case 1");
                     break;
             }
-            sesja.getTransaction().commit();
+            
         } catch (HibernateException he) {
                 System.out.println(he);
                 System.exit(-1);                        
@@ -470,7 +496,7 @@ public class MainController implements Initializable {
     //SQL Statements, TODO: change to hibernate friendly
     private static final String clientsSQL = "from Clients";
     private static final String repairsSQL = "from Repairs";
-
+    private static final String lastId = "from Repairs";
     
     
 }

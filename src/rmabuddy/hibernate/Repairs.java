@@ -43,6 +43,7 @@ public class Repairs implements java.io.Serializable {
     }
 
 	
+    
     public Repairs(int id) {
         this.id = id;
     }
@@ -59,6 +60,7 @@ public class Repairs implements java.io.Serializable {
        //this.hwid = hwid;
     }
    
+    //<editor-fold desc="Setters/Getters">
     public int getId() {
         return this.id;
     }
@@ -132,7 +134,7 @@ public class Repairs implements java.io.Serializable {
         this.sprzet = sprzet;
     }
 
-    
+    //</editor-fold>
 
 }
 
