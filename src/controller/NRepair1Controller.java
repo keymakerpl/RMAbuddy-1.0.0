@@ -66,6 +66,9 @@ public class NRepair1Controller implements Initializable {
         startDateP.setValue(LocalDate.now());
         endDateP.setValue(LocalDate.now());
         statCB.getItems().addAll(FXCollections.observableArrayList("Otwarta", "Zamknięta"));
+        statCB.getSelectionModel().selectFirst();
+        typeCB.getSelectionModel().selectFirst();
+        inStoreCB.getSelectionModel().selectFirst();
        
     }
     

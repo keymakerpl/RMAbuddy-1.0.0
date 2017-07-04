@@ -57,7 +57,7 @@ public class Clients  implements java.io.Serializable {
        this.phone2 = phone2;
     }
     
-    // <editor-fold desc="Getters/Setters">
+    // <editor-fold desc="Getters/Setters" defaultstate="collapsed">
     
     public int getId() {
         return this.id;
