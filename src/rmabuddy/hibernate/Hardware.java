@@ -47,7 +47,8 @@ public class Hardware implements java.io.Serializable {
         this.other = other;
         //this.clientid = clientid;
     }
-
+    
+    //<editor-fold desc="Getters/Setters" defaultstate="collapsed">    
     public int getId() {
         return this.id;
     }
@@ -112,6 +113,6 @@ public class Hardware implements java.io.Serializable {
         this.naprawa = naprawa;
     }
     
-    
+    //</editor-fold>
 
 }

@@ -19,7 +19,7 @@
             <Button fx:id="repairsBtn" mnemonicParsing="false" onAction="#repairsButtonAction" prefHeight="68.0" prefWidth="180.0" text="NAPRAWY" />
             <Button fx:id="clientsBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clientsButtonAction" prefHeight="68.0" prefWidth="180.0" text="KLIENCI" />
             <Button layoutX="10.0" layoutY="78.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="180.0" text="SZUKAJ" />
-            <Button layoutX="10.0" layoutY="146.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="180.0" text="USTAWIENIA" />
+            <Button layoutX="10.0" layoutY="146.0" mnemonicParsing="false" onAction="#settingsButtonAction" prefHeight="68.0" prefWidth="180.0" text="USTAWIENIA" />
             <Button layoutX="10.0" layoutY="214.0" mnemonicParsing="false" onAction="#exitButtonAction" prefHeight="68.0" prefWidth="180.0" text="WYJŚCIE" />
          </children>
       </VBox>
@@ -50,7 +50,7 @@
                </tooltip>
             </Button>
             <Button fx:id="newRepairBackBtn" mnemonicParsing="false" onAction="#nRepairBackButtonAction" prefHeight="25.0" prefWidth="81.0" text="Wstecz" GridPane.columnIndex="1" />
-            <Button fx:id="addClientBtn" mnemonicParsing="false" onAction="#addClientButtonAction" prefHeight="25.0" prefWidth="137.0" text="Dodaj tylko klienta" />
+            <Button fx:id="addClientBtn" mnemonicParsing="false" onAction="#addClientOnlyButtonAction" prefHeight="25.0" prefWidth="137.0" text="Dodaj tylko klienta" />
             <Button fx:id="newRepairSaveBtn" mnemonicParsing="false" onAction="#nRepairSaveBtnAction" prefHeight="50.0" prefWidth="100.0" text="Zapisz" GridPane.columnIndex="3" />
          </children>
       </GridPane>
