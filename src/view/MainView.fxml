@@ -18,7 +18,7 @@
          <children>
             <Button fx:id="repairsBtn" mnemonicParsing="false" onAction="#repairsButtonAction" prefHeight="68.0" prefWidth="180.0" text="NAPRAWY" />
             <Button fx:id="clientsBtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#clientsButtonAction" prefHeight="68.0" prefWidth="180.0" text="KLIENCI" />
-            <Button layoutX="10.0" layoutY="78.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="180.0" text="SZUKAJ" />
+            <Button layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#searchButtonAction" prefHeight="68.0" prefWidth="180.0" text="SZUKAJ" />
             <Button layoutX="10.0" layoutY="146.0" mnemonicParsing="false" onAction="#settingsButtonAction" prefHeight="68.0" prefWidth="180.0" text="USTAWIENIA" />
             <Button layoutX="10.0" layoutY="214.0" mnemonicParsing="false" onAction="#exitButtonAction" prefHeight="68.0" prefWidth="180.0" text="WYJŚCIE" />
          </children>
@@ -44,17 +44,17 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="newRepairNextBtn" mnemonicParsing="false" onAction="#nRepairNextButtonAction" prefHeight="50.0" prefWidth="81.0" text="Dalej" GridPane.columnIndex="2">
+            <Button fx:id="newRepairNextBtn" mnemonicParsing="false" onAction="#newRepairNextButtonAction" prefHeight="50.0" prefWidth="81.0" text="Dalej" GridPane.columnIndex="2">
                <tooltip>
                   <Tooltip text="Przechodzi do następnego formularza." />
                </tooltip>
             </Button>
-            <Button fx:id="newRepairBackBtn" mnemonicParsing="false" onAction="#nRepairBackButtonAction" prefHeight="25.0" prefWidth="81.0" text="Wstecz" GridPane.columnIndex="1" />
+            <Button fx:id="newRepairBackBtn" mnemonicParsing="false" onAction="#newRepairBackButtonAction" prefHeight="25.0" prefWidth="81.0" text="Wstecz" GridPane.columnIndex="1" />
             <Button fx:id="addClientBtn" mnemonicParsing="false" onAction="#addClientOnlyButtonAction" prefHeight="25.0" prefWidth="137.0" text="Dodaj tylko klienta" />
-            <Button fx:id="newRepairSaveBtn" mnemonicParsing="false" onAction="#nRepairSaveBtnAction" prefHeight="50.0" prefWidth="100.0" text="Zapisz" GridPane.columnIndex="3" />
+            <Button fx:id="newRepairSaveBtn" mnemonicParsing="false" onAction="#newRepairSaveButtonAction" prefHeight="50.0" prefWidth="100.0" text="Zapisz" GridPane.columnIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="newRepairBtn" layoutX="15.0" layoutY="603.0" mnemonicParsing="false" onAction="#nRepairButtonAction" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Nowa naprawa" />
+      <Button fx:id="newRepairBtn" layoutX="15.0" layoutY="603.0" mnemonicParsing="false" onAction="#newRepairButtonAction" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Nowa naprawa" />
       <Button layoutX="15.0" layoutY="628.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Edytuj" />
       <Button layoutX="15.0" layoutY="653.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Usuń" />
       <Button layoutX="15.0" layoutY="678.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Drukuj" />
