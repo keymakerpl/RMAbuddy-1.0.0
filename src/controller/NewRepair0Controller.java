@@ -18,7 +18,7 @@ import javafx.scene.layout.Pane;
  *
  * @author Radek
  */
-public class NRepairController implements Initializable {
+public class NewRepair0Controller implements Initializable {
     
     @FXML
     private Pane nRepair0;

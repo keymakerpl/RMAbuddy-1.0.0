@@ -35,24 +35,24 @@ import rmabuddy.hibernate.Hardware;
 import rmabuddy.hibernate.HibernateUtil;
 import rmabuddy.hibernate.Repairs;
 import static java.lang.System.err;
-import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.stage.WindowEvent;
+import model.RMAbuddyModel;
 
 /**
  *
  * @author Radek Kurek
  */
 public class MainController implements Initializable {
-
-    //hebernate con.
-    Session session;
+    
+    Session session; //TODO: move to model
+    RMAbuddyModel model = new RMAbuddyModel();
 
     // <editor-fold desc="Controllers" defaultstate="collapsed">
-    NRepairController newRepairViewOneController; //TODO: change names
-    NRepair1Controller newRepairViewTwoController;
+    NewRepair0Controller newRepairViewOneController; //TODO: change names
+    NewRepair1Controller newRepairViewTwoController;
     SettingsViewController settingsViewController;
     SearchViewController searchViewController;
     // </editor-fold>
@@ -65,7 +65,7 @@ public class MainController implements Initializable {
     @FXML
     private TitledPane menuPane;
     @FXML
-    private Accordion menuAcc;   
+    private Accordion menuAcc;
     @FXML
     private Button newRepairBtn;
     @FXML
@@ -77,7 +77,7 @@ public class MainController implements Initializable {
     @FXML
     private Button clientsBtn;
     @FXML
-    private Button repairsBtn;    
+    private Button repairsBtn;
     @FXML
     private Pane newRepairPaneOne;
     @FXML
@@ -134,7 +134,7 @@ public class MainController implements Initializable {
     @FXML
     private void repairsButtonAction(ActionEvent event) {
 
-        executeSQL(repairsSQL, 0);
+        setTableRepairs(model.getListFromTable("repairs"));
         newRepairBtnGrid.setVisible(false);
 
     }
@@ -142,7 +142,7 @@ public class MainController implements Initializable {
     @FXML
     private void clientsButtonAction(ActionEvent event) {
 
-        executeSQL(clientsSQL, 1);
+        setTableClients(model.getListFromTable("clients"));
         newRepairBtnGrid.setVisible(false);
 
     }
@@ -174,6 +174,7 @@ public class MainController implements Initializable {
     private void newRepairButtonAction(ActionEvent event) {
 
         setViewToNewRepairPanelOne();
+        newRepairBtnGrid.setVisible(true);
 
     }
 
@@ -237,72 +238,52 @@ public class MainController implements Initializable {
 
     // <editor-fold desc="METHODS" defaultstate="collapsed">
     private void createSession() { //to do: database error catch
-
+        
         try {
             session = HibernateUtil.getSessionFactory().openSession();
+            if (session.isConnected()) {
+                err.print("Connected to database.");
+            } else {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Błąd bazy danych.");
+                alert.setHeaderText("Błąd połącznia z bazą danych.");
+                alert.setContentText("Wystąpił problem z połączeniem z bazą danych lub plik bazy danych jest uszkodzony.");
+
+                alert.showAndWait();
+            }
         } catch (HibernateException e) {
             err.println(e);
 
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Błąd bazy danych.");
-            alert.setHeaderText("Błąd połącznia z bazą danych.");
-            alert.setContentText("Wystąpił problem z połączeniem z bazą danych lub plik bazy danych jest uszkodzony.");
-
-            alert.showAndWait();
-
         }
 
-    }
-    
-    private void preparePanels(){
-        
-        newRepairPaneOne = preparePanel(newRepairPaneOne, newRepairPageOneFXMLLoader, "/view/nRepair0.fxml");
-        newRepairPaneTwo = preparePanel(newRepairPaneTwo, newReapirPageTwoFXMLLoader, "/view/nRepair1.fxml");
+    } //TODO: move to model
+
+    private void preparePanels() {
+
+        newRepairPaneOne = preparePanel(newRepairPaneOne, newRepairPageOneFXMLLoader, "/view/NewRepair0View.fxml");
+        newRepairPaneTwo = preparePanel(newRepairPaneTwo, newReapirPageTwoFXMLLoader, "/view/NewRepair1View.fxml");
         settingsPane = preparePanel(settingsPane, settingsFXMLLoader, "/view/SettingsView.fxml");
         searchPane = preparePanel(searchPane, searchFXMLLoader, "/view/SearchView.fxml");
-        
+
     }
 
     private Pane preparePanel(Pane aPane, FXMLLoader aLoader, String aURLString) {
-        
-        
+
         try {
             aPane = (Pane) aLoader.load(getClass().getResource(aURLString).openStream());
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             err.println(ex);
         }
-        
+
         return aPane;
 
-        /*
-         try {
-         nRepair0 = (Pane) newRepairPageOneFXMLLoader.load(getClass().getResource("/view/nRepair0.fxml").openStream()); // .openStream() rozwiązało problem błędów z null           
-         } catch (IOException ex) {
-         Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        
-        
-         try {
-         nRepair1 = (Pane) newReapirPageTwoFXMLLoader.load(getClass().getResource("/view/nRepair1.fxml").openStream());
-         } catch (IOException ex) {
-         Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        
-        
-         try {
-         settingsPane = (Pane) settingsFXMLLoader.load(getClass().getResource("/view/SettingsView.fxml").openStream());
-         } catch (IOException ex) {
-         Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        
-         */
     }
 
     private void prepareViewControllers() {
 
-        newRepairViewOneController = (NRepairController) newRepairPageOneFXMLLoader.getController();
-        newRepairViewTwoController = (NRepair1Controller) newReapirPageTwoFXMLLoader.getController();
+        newRepairViewOneController = (NewRepair0Controller) newRepairPageOneFXMLLoader.getController();
+        newRepairViewTwoController = (NewRepair1Controller) newReapirPageTwoFXMLLoader.getController();
         settingsViewController = (SettingsViewController) settingsFXMLLoader.getController();
         searchViewController = (SearchViewController) searchFXMLLoader.getController();
 
@@ -313,10 +294,6 @@ public class MainController implements Initializable {
         newRepairBtnGrid.setHgap(10);
         newRepairBtnGrid.setVgap(10);
         newRepairBtnGrid.setVisible(false);
-
-        newRepairPaneOne.addEventHandler(WindowEvent.WINDOW_SHOWING, (WindowEvent e) -> {
-            newRepairBtnGrid.setVisible(true);
-        });
 
     }
 
@@ -382,7 +359,7 @@ public class MainController implements Initializable {
         session.getTransaction().commit();
 
         return list.get(list.size() - 1).getId();
-    }
+    } //TODO: move to model
 
     private void saveNewRepair() {
 
@@ -435,7 +412,7 @@ public class MainController implements Initializable {
         session.getTransaction().commit();
         //sesja.close();
 
-    }
+    } //TODO: move to model
 
     // </editor-fold>
     
@@ -547,7 +524,7 @@ public class MainController implements Initializable {
             System.exit(-1);
         }
 
-    }
+    } //TODO: move to model
     //End
 
     //Main init
@@ -559,6 +536,8 @@ public class MainController implements Initializable {
         preparePanels();
         prepareNewRepairBtnGrid();
         mainPane.setContent(new Pane());
+        
+        
 
     }
 

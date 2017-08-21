@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</property>
-    <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
-    <property name="hibernate.connection.url">jdbc:derby://localhost:1527/rmabuddy</property>
-    <property name="hibernate.connection.username">rmabuddy</property>
-    <property name="hibernate.connection.password">#area2008</property>
-    <property name="hibernate.show_sql">true</property>
-    <mapping class="rmabuddy.hibernate.Clients"/>
-    <mapping class="rmabuddy.hibernate.Status"/>
-    <mapping class="rmabuddy.hibernate.Repairs"/>
-    <mapping class="rmabuddy.hibernate.Hardware"/>
-  </session-factory>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</property>
+        <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
+        <property name="hibernate.connection.url">jdbc:derby://localhost:1527/rmabuddy</property>
+        <property name="hibernate.connection.username">rmabuddy</property>
+        <property name="hibernate.connection.password">#area2008</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.c3p0.testConnectionOnCheckout">true</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">30</property>
+        <property name="hibernate.c3p0.max_statements">10</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+        <mapping class="rmabuddy.hibernate.Clients"/>
+        <mapping class="rmabuddy.hibernate.Status"/>
+        <mapping class="rmabuddy.hibernate.Repairs"/>
+        <mapping class="rmabuddy.hibernate.Hardware"/>
+    </session-factory>
 </hibernate-configuration>

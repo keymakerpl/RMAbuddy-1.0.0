@@ -20,7 +20,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author Radek
  */
-public class NRepair1Controller implements Initializable {
+public class NewRepair1Controller implements Initializable {
 
     /**
      * Initializes the controller class.
