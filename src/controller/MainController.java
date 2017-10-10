@@ -18,7 +18,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -27,34 +26,26 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import rmabuddy.hibernate.Clients;
-import rmabuddy.hibernate.Hardware;
-import rmabuddy.hibernate.HibernateUtil;
 import rmabuddy.hibernate.Repairs;
 import static java.lang.System.err;
-import java.text.SimpleDateFormat;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.stage.WindowEvent;
+import static java.lang.System.out;
 import model.RMAbuddyModel;
 
 /**
  *
  * @author Radek Kurek
  */
-public class MainController implements Initializable {
+public class MainController implements Initializable {  
     
-    Session session; //TODO: move to model
     RMAbuddyModel model = new RMAbuddyModel();
-
+    
     // <editor-fold desc="Controllers" defaultstate="collapsed">
-    NewRepair0Controller newRepairViewOneController; //TODO: change names
+    NewRepair0Controller newRepairViewOneController; 
     NewRepair1Controller newRepairViewTwoController;
     SettingsViewController settingsViewController;
     SearchViewController searchViewController;
+    
     // </editor-fold>
 
     // <editor-fold desc="FXML elements" defaultstate="collapsed">
@@ -97,8 +88,8 @@ public class MainController implements Initializable {
     // </editor-fold>
 
     // <editor-fold desc="Other obj/var" defaultstate="collapsed">
-    FXMLLoader newRepairPageOneFXMLLoader = new FXMLLoader(); //TODO change names
-    FXMLLoader newReapirPageTwoFXMLLoader = new FXMLLoader();
+    FXMLLoader newRepairPageOneFXMLLoader = new FXMLLoader(); 
+    FXMLLoader newRepairPageTwoFXMLLoader = new FXMLLoader();
     FXMLLoader settingsFXMLLoader = new FXMLLoader();
     FXMLLoader searchFXMLLoader = new FXMLLoader();
     Map<String, String> repairMapStrings = new HashMap<>();
@@ -184,25 +175,8 @@ public class MainController implements Initializable {
         if (!"".equals(newRepairViewOneController.getNazwiskoText())) {
             getDataFromNewRepairPanelOne();
 
-            session.beginTransaction();
-
-            Clients klient = new Clients();
-
-            klient.setFname(repairMapStrings.get("imie"));
-            klient.setSname(repairMapStrings.get("nazwisko"));
-            klient.setCompany(repairMapStrings.get("firma"));
-            klient.setNip(repairMapStrings.get("nip"));
-            klient.setAddr1(repairMapStrings.get("adres"));
-            klient.setAddr2(repairMapStrings.get("adrescd"));
-            klient.setCity(repairMapStrings.get("miasto"));
-            klient.setPostcode(repairMapStrings.get("poczta"));
-            klient.setEmail(repairMapStrings.get("email"));
-            klient.setPhone1(repairMapStrings.get("telefon1"));
-            klient.setPhone2(repairMapStrings.get("telefon2"));
-
-            session.save(klient);
-
-            session.getTransaction().commit();
+            model.saveClientOnly(repairMapStrings);
+            
         } else {
             newRepairViewOneController.setEmptyFieldsCol();
         }
@@ -211,13 +185,14 @@ public class MainController implements Initializable {
 
     @FXML
     private void newRepairNextButtonAction(ActionEvent event) throws IOException { //przechodzi do drugiego panelu nowej naprawy
-
-        if (!"".equals(newRepairViewOneController.getNazwiskoText())) {
-            setViewToNewRepairPanelTwo();
-        } else {
+        
+        
+        if (newRepairViewOneController.getNazwiskoText().equals("")) {
             newRepairViewOneController.setEmptyFieldsCol();
+        } else {
+            setViewToNewRepairPanelTwo();
         }
-
+        
     }
 
     @FXML
@@ -234,34 +209,24 @@ public class MainController implements Initializable {
         saveNewRepair();
 
     }
+    
+    @FXML
+    private void deleteRecordButtonAction(ActionEvent event){
+        
+        Repairs repair = (Repairs) mainTable.getSelectionModel().getSelectedItem();
+        model.deleteRepair(repair.getId());
+        setTableRepairs(model.getListFromTable("repairs"));
+        
+    }
+    
     // </editor-fold>
 
     // <editor-fold desc="METHODS" defaultstate="collapsed">
-    private void createSession() { //to do: database error catch
-        
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            if (session.isConnected()) {
-                err.print("Connected to database.");
-            } else {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Błąd bazy danych.");
-                alert.setHeaderText("Błąd połącznia z bazą danych.");
-                alert.setContentText("Wystąpił problem z połączeniem z bazą danych lub plik bazy danych jest uszkodzony.");
-
-                alert.showAndWait();
-            }
-        } catch (HibernateException e) {
-            err.println(e);
-
-        }
-
-    } //TODO: move to model
 
     private void preparePanels() {
 
         newRepairPaneOne = preparePanel(newRepairPaneOne, newRepairPageOneFXMLLoader, "/view/NewRepair0View.fxml");
-        newRepairPaneTwo = preparePanel(newRepairPaneTwo, newReapirPageTwoFXMLLoader, "/view/NewRepair1View.fxml");
+        newRepairPaneTwo = preparePanel(newRepairPaneTwo, newRepairPageTwoFXMLLoader, "/view/NewRepair1View.fxml");
         settingsPane = preparePanel(settingsPane, settingsFXMLLoader, "/view/SettingsView.fxml");
         searchPane = preparePanel(searchPane, searchFXMLLoader, "/view/SearchView.fxml");
 
@@ -283,7 +248,7 @@ public class MainController implements Initializable {
     private void prepareViewControllers() {
 
         newRepairViewOneController = (NewRepair0Controller) newRepairPageOneFXMLLoader.getController();
-        newRepairViewTwoController = (NewRepair1Controller) newReapirPageTwoFXMLLoader.getController();
+        newRepairViewTwoController = (NewRepair1Controller) newRepairPageTwoFXMLLoader.getController();
         settingsViewController = (SettingsViewController) settingsFXMLLoader.getController();
         searchViewController = (SearchViewController) searchFXMLLoader.getController();
 
@@ -308,12 +273,12 @@ public class MainController implements Initializable {
         getDataFromNewRepairPanelOne();
 
         mainPane.setContent(newRepairPaneTwo);
-        newRepairViewTwoController.setNazwiskoLabel(repairMapStrings.get("imie") + " " + repairMapStrings.get("nazwisko"));
+        //newRepairViewTwoController.setNazwiskoLabel(repairMapStrings.get("imie") + " " + repairMapStrings.get("nazwisko"));
 
     }
 
     private void getDataFromNewRepairPanelOne() {
-
+        
         repairMapStrings.put("imie", newRepairViewOneController.getImieText());
         repairMapStrings.put("nazwisko", newRepairViewOneController.getNazwiskoText());
         repairMapStrings.put("firma", newRepairViewOneController.getFirmaText());
@@ -324,8 +289,8 @@ public class MainController implements Initializable {
         repairMapStrings.put("adrescd", newRepairViewOneController.getAdrescdText());
         repairMapStrings.put("miasto", newRepairViewOneController.getMiastoText());
         repairMapStrings.put("poczta", newRepairViewOneController.getPocztaText());
-        repairMapStrings.put("email", newRepairViewOneController.getEmailText());
-
+        repairMapStrings.put("email", newRepairViewOneController.getEmailText());    
+        
     }
 
     private void getDataFromNewRepairPanelTwo() {
@@ -349,70 +314,11 @@ public class MainController implements Initializable {
 
     }
 
-    private int getLastRepairId() {
-
-        session.beginTransaction();
-        Query q = session.createQuery(repairsSQL);
-
-        List<Repairs> list = q.list();
-
-        session.getTransaction().commit();
-
-        return list.get(list.size() - 1).getId();
-    } //TODO: move to model
-
     private void saveNewRepair() {
 
-        Clients klient = new Clients();
-        Hardware sprzet = new Hardware();
-        Repairs naprawa = new Repairs();
+        model.saveNewRepair(repairMapStrings, repairMapInts, repairMapDates);
 
-        klient.setFname(repairMapStrings.get("imie"));
-        klient.setSname(repairMapStrings.get("nazwisko"));
-        klient.setCompany(repairMapStrings.get("firma"));
-        klient.setNip(repairMapStrings.get("nip"));
-        klient.setAddr1(repairMapStrings.get("adres"));
-        klient.setAddr2(repairMapStrings.get("adrescd"));
-        klient.setCity(repairMapStrings.get("miasto"));
-        klient.setPostcode(repairMapStrings.get("poczta"));
-        klient.setEmail(repairMapStrings.get("email"));
-        klient.setPhone1(repairMapStrings.get("telefon1"));
-        klient.setPhone2(repairMapStrings.get("telefon2"));
-
-        sprzet.setType(repairMapInts.get("typ"));
-        sprzet.setInstore(repairMapInts.get("instore"));
-        sprzet.setOther(repairMapStrings.get("other"));
-        sprzet.setName(repairMapStrings.get("nazwaurz"));
-        sprzet.setSn(repairMapStrings.get("sn"));
-
-        StringBuilder number = new StringBuilder("");
-        Date date = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("MMYY");
-        number.append(getLastRepairId() + 1);
-        number.append("/");
-        number.append(df.format(date));
-
-        naprawa.setNumber(number.toString());
-        naprawa.setDefect(repairMapStrings.get("defect"));
-        naprawa.setFix(repairMapStrings.get("fix"));
-        naprawa.setStatus(repairMapInts.get("status"));
-        naprawa.setCost(repairMapStrings.get("cost"));
-        naprawa.setStartdate(repairMapDates.get("startdate"));
-        naprawa.setEnddate(repairMapDates.get("enddate"));
-
-        session.getTransaction().begin();
-
-        naprawa.setKlient(klient);
-        naprawa.setSprzet(sprzet);
-        sprzet.setNaprawa(naprawa);
-        session.save(klient);
-        session.save(sprzet);
-        session.save(naprawa);
-
-        session.getTransaction().commit();
-        //sesja.close();
-
-    } //TODO: move to model
+    }
 
     // </editor-fold>
     
@@ -500,40 +406,12 @@ public class MainController implements Initializable {
     }
     // </editor-fold>
 
-    //Setting SQL
-    private void executeSQL(String hql, int s) {
-        try {
-            session.beginTransaction();
-            Query q = session.createQuery(hql);
-            //q.setFirstResult((q.list().size()) - 20);
-            List list = q.list();
-
-            switch (s) {
-                case 0:
-                    setTableRepairs(list);
-                    session.getTransaction().commit();
-                    break;
-                case 1:
-                    setTableClients(list);
-                    session.getTransaction().commit();
-                    break;
-            }
-
-        } catch (HibernateException he) {
-            System.out.println(he);
-            System.exit(-1);
-        }
-
-    } //TODO: move to model
-    //End
-
-    //Main init
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        createSession();
-        prepareViewControllers();
+        
+        model.checkIfDatabaseIsUp();
         preparePanels();
+        prepareViewControllers();
         prepareNewRepairBtnGrid();
         mainPane.setContent(new Pane());
         
@@ -541,7 +419,4 @@ public class MainController implements Initializable {
 
     }
 
-    //SQL Statements, TODO: change to hibernate friendly
-    private static final String clientsSQL = "from Clients";
-    private static final String repairsSQL = "from Repairs";
 }

@@ -56,7 +56,7 @@
       </GridPane>
       <Button fx:id="newRepairBtn" layoutX="15.0" layoutY="603.0" mnemonicParsing="false" onAction="#newRepairButtonAction" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Nowa naprawa" />
       <Button layoutX="15.0" layoutY="628.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Edytuj" />
-      <Button layoutX="15.0" layoutY="653.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Usuń" />
+      <Button layoutX="15.0" layoutY="653.0" mnemonicParsing="false" onAction="#deleteRecordButtonAction" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Usuń" />
       <Button layoutX="15.0" layoutY="678.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" style="-fx-background-radius: 0;" text="Drukuj" />
    </children>
 </AnchorPane>

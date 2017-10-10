@@ -1,11 +1,16 @@
 package rmabuddy.hibernate;
 
 
+import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -31,10 +36,12 @@ public class Clients  implements java.io.Serializable {
      private String phone1;
      private String phone2;
      
-     @OneToOne(mappedBy = "klient")
-     private Repairs repairs;
+     @OneToMany(mappedBy = "klient")
+     private List<Repairs> repairs;
      
-
+     @OneToMany(mappedBy = "klient")
+     private List<Hardware> hardware;
+     
     public Clients() {
     }
 
@@ -135,7 +142,7 @@ public class Clients  implements java.io.Serializable {
     
     public void setPhone1(String phone1) {
         this.phone1 = phone1;
-    }
+    }   
     public String getPhone2() {
         return this.phone2;
     }
@@ -143,7 +150,25 @@ public class Clients  implements java.io.Serializable {
     public void setPhone2(String phone2) {
         this.phone2 = phone2;
     }
+    
+    public List<Repairs> getRepairs() {
+        return repairs;
+    }
+
+    public void setRepairs(List<Repairs> repairs) {
+        this.repairs = repairs;
+    }
+    
+    public List<Hardware> getHardware() {
+        return hardware;
+    }
+
+    public void setHardware(List<Hardware> hardware) {
+        this.hardware = hardware;
+    }
+    
     //</editor-fold>
+    
 }
 
 

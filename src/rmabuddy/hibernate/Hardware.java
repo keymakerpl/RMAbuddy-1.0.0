@@ -2,9 +2,11 @@ package rmabuddy.hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
@@ -26,10 +28,9 @@ public class Hardware implements java.io.Serializable {
     private String other;
     private Integer repairid;
 
-    @OneToOne(mappedBy = "sprzet")
-    private Repairs naprawa;
-
-    
+    @ManyToOne
+    @JoinColumn(name = "CLIENTID")
+    private Clients klient;
 
     public Hardware() {
     }
@@ -47,7 +48,7 @@ public class Hardware implements java.io.Serializable {
         this.other = other;
         //this.clientid = clientid;
     }
-    
+
     //<editor-fold desc="Getters/Setters" defaultstate="collapsed">    
     public int getId() {
         return this.id;
@@ -105,14 +106,13 @@ public class Hardware implements java.io.Serializable {
         this.repairid = repairid;
     }
 
-    public Repairs getNaprawa() {
-        return naprawa;
+    public Clients getKlient() {
+        return klient;
     }
 
-    public void setNaprawa(Repairs naprawa) {
-        this.naprawa = naprawa;
+    public void setKlient(Clients klient) {
+        this.klient = klient;
     }
-    
+
     //</editor-fold>
-
 }

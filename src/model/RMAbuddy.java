@@ -1,6 +1,8 @@
-
 package model;
 
+import java.io.IOException;
+import static java.lang.System.err;
+import java.net.Socket;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,16 +14,14 @@ import javafx.stage.Stage;
  * @author Radek
  */
 public class RMAbuddy extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        
-        
-        
+
         Parent root = FXMLLoader.load(getClass().getResource("/view/MainView.fxml"));
-        
+
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("RMAbuddy 1.0.0");
@@ -33,7 +33,8 @@ public class RMAbuddy extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         launch(args);
     }
-    
+
 }
