@@ -23,7 +23,10 @@ public class SettingsViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 		
-		//NewFeature branch
+
+
+		// HotFix branch
+
     }    
     
 }
