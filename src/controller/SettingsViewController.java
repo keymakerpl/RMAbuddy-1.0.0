@@ -26,6 +26,8 @@ public class SettingsViewController implements Initializable {
 
 
 		// HotFix branch
+		
+		//added new feature
 
     }    
     
